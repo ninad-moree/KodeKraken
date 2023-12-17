@@ -13,4 +13,18 @@ version control, inbuilt code editor, student and teacher login functionality.
 
 ## Project Screenshot
 
-<img src="assets/project-ss" alt="pro-ss-1" />
+### Student Side
+<img src="assets/project-ss/LoginPage.png" alt="pro-ss"/>
+<img src="assets/project-ss/SubjectList.png" alt="pro-ss"/>
+<img src="assets/project-ss/AssignmentList.png" alt="pro-ss"/>
+<img src="assets/project-ss/AssugnmentSubmissionPage.png" alt="pro-ss"/>
+
+### Teacher Side
+<img src="assets/project-ss/TeacherView1st.png" alt="pro-ss"/>
+<img src="assets/project-ss/BatchNames.png" alt="pro-ss"/>
+<img src="assets/project-ss/RollNoList.png" alt="pro-ss"/>
+<img src="assets/project-ss/RollNosSubject.png" alt="pro-ss"/>
+<img src="assets/project-ss/RollNosAssignmentList.png" alt="pro-ss"/>
+<img src="assets/project-ss/TeacherView.png" alt="pro-ss"/>
+<img src="assets/project-ss/Teacher-Assgn-Edit.png" alt="pro-ss"/>
+<img src="assets/project-ss/AddAssignment.png" alt="pro-ss"/>
