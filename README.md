@@ -1,16 +1,16 @@
-# kode_kraken
+# KodeKraken
+Second year PBL project built in flutter and used firebase as backend. Implemented uploading of assignments, 
+version control, inbuilt code editor, student and teacher login functionality.
 
-A new Flutter project.
+## Key Functionalities:
+- Login functionality implemented with the help of firebase-auth
+- Student and teacher logins for secure access and assignment tracking.
+- Student functionality includes assignment uploads, viewing submission dates, and test cases.
+- Versioning is also implemented.
+- Teacher can see the assignments submitted by the students and grade the assignments accordingly.
+- The app offers an integrated code editor for convenient code writing and submissions.
+- Firebase integration manages backend functions efficiently.
 
-## Getting Started
+## Project Screenshot
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="assets/project-ss" alt="pro-ss-1" />
