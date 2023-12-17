@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "316921386386",
+    "firebase_url": "https://kodekraken-6969-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "kodekraken-6969",
+    "storage_bucket": "kodekraken-6969.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:316921386386:android:6c04c51b175051cbd15d4b",
+        "android_client_info": {
+          "package_name": "com.example.kode_kraken"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "316921386386-1m1iqpjhi1ctkibsrt9pfmito80q909q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9DXIkerTpAj_bR5riUB3w2FwQysCUUYw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "316921386386-1m1iqpjhi1ctkibsrt9pfmito80q909q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "316921386386-jvcio4ijdpsp5ha94elgj36uq5k02ecr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.kodeKraken"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:316921386386:android:ebed6b32180f7fb9d15d4b",
+        "android_client_info": {
+          "package_name": "com.pict.kode_kraken"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "316921386386-1m1iqpjhi1ctkibsrt9pfmito80q909q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9DXIkerTpAj_bR5riUB3w2FwQysCUUYw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "316921386386-1m1iqpjhi1ctkibsrt9pfmito80q909q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "316921386386-jvcio4ijdpsp5ha94elgj36uq5k02ecr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.kodeKraken"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
