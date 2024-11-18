@@ -11,18 +11,12 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('KodeKraken'),
-      //   backgroundColor: ColorConstants.kPrimaryColor,
-      // ),
-      backgroundColor: Colors.blue[50],
+      backgroundColor: ColorConstants.kBackgroundColor,
       body: Center(
         child: Container(
           height: MediaQuery.of(context).size.height * 0.75,
           width: MediaQuery.of(context).size.width * 0.61,
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.transparent),
-          ),
+          decoration: BoxDecoration(border: Border.all(color: Colors.transparent)),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
