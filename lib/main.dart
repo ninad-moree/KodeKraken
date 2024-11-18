@@ -38,8 +38,8 @@ class MyApp extends StatelessWidget {
 
 /*
   Student:
-   Id - test@gmail.com
-   pwd - pass@123
+    Id - test@gmail.com
+    pwd - pass@123
 
   Teacher:
     Id- teacher
