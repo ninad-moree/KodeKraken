@@ -1,7 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kode_kraken/constants/color_constants.dart';
 import 'package:kode_kraken/features/student_view/bloc/student_page_bloc.dart';
 
 import '../../../models/student.dart';
@@ -15,12 +14,27 @@ class SubjectDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(student.name),
+        title: Text(
+          student.name,
+          style: const TextStyle(color: Colors.white),
+        ),
+        backgroundColor: ColorConstants.kPrimaryColor,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Text(
+                student.name[0].toUpperCase(),
+                style: const TextStyle(color: ColorConstants.kPrimaryColor, fontSize: 24),
+              ),
+            ),
+          ),
+        ],
       ),
       body: Center(
         child: BlocBuilder<StudentPageBloc, StudentPageState>(
           builder: (context, state) {
-            log(state.toString());
             if (state is StudentPageInitial) {
               return const Text('Initial');
             } else if (state is StudentPageLoading) {
@@ -57,8 +71,7 @@ class SubjectDisplay extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Text(
-                                "Assignments: ${state.subjects.values.toList()[index].length}")
+                            Text("Assignments: ${state.subjects.values.toList()[index].length}")
                           ],
                         ),
                       ),
@@ -104,8 +117,7 @@ class SubjectDisplay extends StatelessWidget {
                               textAlign: TextAlign.center,
                             ),
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 12),
+                              padding: const EdgeInsets.symmetric(horizontal: 12),
                               child: Text(
                                 state.assignments[index].description.toString(),
                                 style: const TextStyle(

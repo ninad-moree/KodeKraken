@@ -165,13 +165,14 @@ class _LoginPageStudentState extends State<LoginPageStudent> {
                         child: BlocConsumer<LoginBloc, LoginState>(
                           listener: (context, state) {
                             if (state is LoginSuccess) {
-                              Navigator.of(context).push(
+                              Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(
                                   builder: (context) => BlocProvider(
                                     create: (context) => StudentPageBloc()..getAllSubjects(state.student!),
                                     child: SubjectDisplay(student: state.student!),
                                   ),
                                 ),
+                                (route) => false,
                               );
                             }
                             if (state is LoginFailure) {

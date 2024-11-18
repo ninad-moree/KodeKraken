@@ -13,8 +13,7 @@ class Database {
 
   static Future<Student?> verifyStudent(String email, String password) async {
     var signature = sha1.convert(utf8.encode(email + password)).toString();
-    var result =
-        await _firestore.collection('studentAccounts').doc(signature).get();
+    var result = await _firestore.collection('studentAccounts').doc(signature).get();
     if (result.exists) {
       var student = Student.fromJson(result.data()!);
       return student;
@@ -24,8 +23,7 @@ class Database {
 
   static Future<Teacher?> verifyTeacher(String email, String password) async {
     var signature = sha1.convert(utf8.encode(email + password)).toString();
-    var result =
-        await _firestore.collection('teacherAccounts').doc(signature).get();
+    var result = await _firestore.collection('teacherAccounts').doc(signature).get();
     if (result.exists) {
       var teacher = Teacher.fromJson(result.data()!);
       return teacher;
@@ -34,8 +32,7 @@ class Database {
   }
 
   static Future<Map?> getSubjects(Student student) async {
-    var result =
-        await _firestore.collection('batches').doc(student.batch).get();
+    var result = await _firestore.collection('batches').doc(student.batch).get();
     if (result.exists) {
       var data = result.data()!['subjects'] as Map;
       Map map = {};
@@ -55,8 +52,7 @@ class Database {
     }
   }
 
-  static Future<Map<String, List<Assignment>>?> getAllSubjects(
-      String batch) async {
+  static Future<Map<String, List<Assignment>>?> getAllSubjects(String batch) async {
     var result = await _firestore.collection('batches').doc(batch).get();
     if (result.exists) {
       var data = result.data()!['subjects'] as Map;
@@ -88,11 +84,9 @@ class Database {
     return batchName;
   }
 
-  static Future<StudentAssignment?> getAssignmentDetails(
-      Assignment assignment, Student student) async {
+  static Future<StudentAssignment?> getAssignmentDetails(Assignment assignment, Student student) async {
     for (var element in student.assignments) {
-      var studentAssignment =
-          (await _firestore.collection('assignment').doc(element).get()).data();
+      var studentAssignment = (await _firestore.collection('assignment').doc(element).get()).data();
       if (studentAssignment != null) {
         if (studentAssignment['number'] == assignment.assignmentNumber) {
           return StudentAssignment.fromJson(studentAssignment);
@@ -102,89 +96,54 @@ class Database {
     return null;
   }
 
-  static Future<StudentAssignment> createStudentAssignment(
-      Student student, Assignment assignment, String subject) {
+  static Future<StudentAssignment> createStudentAssignment(Student student, Assignment assignment, String subject) {
     var studentAssignment = StudentAssignment(
-      id: sha1
-          .convert(utf8
-              .encode(student.email + assignment.assignmentNumber.toString()))
-          .toString(),
+      id: sha1.convert(utf8.encode(student.email + assignment.assignmentNumber.toString())).toString(),
       number: assignment.assignmentNumber,
       status: 'not submitted',
       versions: [],
       subject: subject,
       //assignemntID: '', //
     );
-    return _firestore
-        .collection('assignment')
-        .add(StudentAssignment.toJson(studentAssignment))
-        .then((value) {
+    return _firestore.collection('assignment').add(StudentAssignment.toJson(studentAssignment)).then((value) {
       student.assignments.add(value.id);
-      _firestore
-          .collection('studentAccounts')
-          .doc(student.signature)
-          .update(student.toJson());
+      _firestore.collection('studentAccounts').doc(student.signature).update(student.toJson());
       studentAssignment.id = value.id;
-      _firestore
-          .collection('assignment')
-          .doc(value.id)
-          .update(StudentAssignment.toJson(studentAssignment));
+      _firestore.collection('assignment').doc(value.id).update(StudentAssignment.toJson(studentAssignment));
       return studentAssignment;
     });
   }
 
-  static Future codeExecutedCorrectly(
-      String code, StudentAssignment studentAssignment) async {
-    var result = await _firestore
-        .collection('assignment')
-        .doc(studentAssignment.id)
-        .get();
+  static Future codeExecutedCorrectly(String code, StudentAssignment studentAssignment) async {
+    var result = await _firestore.collection('assignment').doc(studentAssignment.id).get();
     if (result.exists) {
       var data = result.data()!;
       data['versions'].add({"code": code, "date": Timestamp.now()});
       data['status'] = "accepted";
-      await _firestore
-          .collection('assignment')
-          .doc(studentAssignment.id)
-          .update(data);
+      await _firestore.collection('assignment').doc(studentAssignment.id).update(data);
     }
   }
 
-  static Future codeExecutedIncorrectly(
-      String code, StudentAssignment studentAssignment) async {
-    var result = await _firestore
-        .collection('assignment')
-        .doc(studentAssignment.id)
-        .get();
+  static Future codeExecutedIncorrectly(String code, StudentAssignment studentAssignment) async {
+    var result = await _firestore.collection('assignment').doc(studentAssignment.id).get();
     if (result.exists) {
       var data = result.data()!;
       data['status'] = "rejected";
-      await _firestore
-          .collection('assignment')
-          .doc(studentAssignment.id)
-          .update(data);
+      await _firestore.collection('assignment').doc(studentAssignment.id).update(data);
     }
   }
 
-  static Future codeVersionSubmit(
-      String code, StudentAssignment studentAssignment) async {
-    var result = await _firestore
-        .collection('assignment')
-        .doc(studentAssignment.id)
-        .get();
+  static Future codeVersionSubmit(String code, StudentAssignment studentAssignment) async {
+    var result = await _firestore.collection('assignment').doc(studentAssignment.id).get();
     if (result.exists) {
       var data = result.data()!;
       data['versions'].add({"code": code, "date": Timestamp.now()});
       data['status'] = "submitted";
-      await _firestore
-          .collection('assignment')
-          .doc(studentAssignment.id)
-          .update(data);
+      await _firestore.collection('assignment').doc(studentAssignment.id).update(data);
     }
   }
 
-  static Future<Assignment?> getAssignmentDetailsFromStudentAssignments(
-      String subject, int assignmentNumber, int rollNumber) async {
+  static Future<Assignment?> getAssignmentDetailsFromStudentAssignments(String subject, int assignmentNumber, int rollNumber) async {
     var students = (await _firestore.collection('studentAccounts').get()).docs;
     Student student;
     String batch = 'E2';
@@ -195,8 +154,7 @@ class Database {
         batch = student.batch;
       }
     }
-    var subjects = (await _firestore.collection('batches').doc(batch).get())
-        .data()!['subjects'];
+    var subjects = (await _firestore.collection('batches').doc(batch).get()).data()!['subjects'];
     List assignments = subjects[subject];
     for (var element in assignments) {
       if (element['number'] == assignmentNumber) {
@@ -207,8 +165,7 @@ class Database {
   }
 
   static Future getStudentAssignments(int rollNo) async {
-    final QuerySnapshot result =
-        await _firestore.collection('studentAccounts').get();
+    final QuerySnapshot result = await _firestore.collection('studentAccounts').get();
     final List documents = result.docs;
 
     for (var element in documents) {
@@ -218,19 +175,13 @@ class Database {
         Map studentAssignments = {};
         assignmentAddresses = data['assignments'];
         for (var assignmentAddress in assignmentAddresses) {
-          var result = await _firestore
-              .collection('assignment')
-              .doc(assignmentAddress)
-              .get();
+          var result = await _firestore.collection('assignment').doc(assignmentAddress).get();
           if (result.exists) {
             var data = result.data()!;
             if (studentAssignments[data['subject']] == null) {
-              studentAssignments[data['subject']] = [
-                StudentAssignment.fromJson(data)
-              ];
+              studentAssignments[data['subject']] = [StudentAssignment.fromJson(data)];
             } else {
-              studentAssignments[data['subject']]
-                  .add(StudentAssignment.fromJson(data));
+              studentAssignments[data['subject']].add(StudentAssignment.fromJson(data));
             }
           }
         }

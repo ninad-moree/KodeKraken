@@ -24,8 +24,7 @@ class StudentPageBloc extends Bloc<StudentPageEvent, StudentPageState> {
     }
   }
 
-  FutureOr<void> subjectSelected(
-      StudentPageSubjectSelectEvent event, Emitter<StudentPageState> emit) {
+  FutureOr<void> subjectSelected(StudentPageSubjectSelectEvent event, Emitter<StudentPageState> emit) {
     emit(StudentPageSubjectSelected(assignments: event.assignments, subject: event.subject));
   }
 }
