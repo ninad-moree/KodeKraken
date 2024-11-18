@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:kode_kraken/features/login/ui/login_page_student.dart';
 import 'package:kode_kraken/features/login/ui/login_page_teacher.dart';
@@ -28,11 +30,9 @@ class WelcomePage extends StatelessWidget {
                     backgroundColor: MaterialStatePropertyAll(Colors.blue),
                   ),
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const LoginPageTeacher()));
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginPageTeacher()));
                   },
-                  child: const Text('Teacher',
-                      style: TextStyle(color: Colors.white, fontSize: 25))),
+                  child: const Text('Teacher', style: TextStyle(color: Colors.white, fontSize: 25))),
             ),
             Padding(
               padding: const EdgeInsets.all(10),
@@ -41,11 +41,9 @@ class WelcomePage extends StatelessWidget {
                     backgroundColor: MaterialStatePropertyAll(Colors.blue),
                   ),
                   onPressed: () async {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const LoginPageStudent()));
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginPageStudent()));
                   },
-                  child: const Text('Student',
-                      style: TextStyle(color: Colors.white, fontSize: 25))),
+                  child: const Text('Student', style: TextStyle(color: Colors.white, fontSize: 25))),
             ),
           ],
         ),
