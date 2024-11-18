@@ -27,7 +27,7 @@ class WelcomePage extends StatelessWidget {
                   Image.asset(
                     'assets/images/student.jpg',
                     fit: BoxFit.cover,
-                    width: MediaQuery.of(context).size.width * 0.304,
+                    width: MediaQuery.of(context).size.width * 0.3037,
                     height: MediaQuery.of(context).size.height * 0.75,
                   ),
                   Positioned(

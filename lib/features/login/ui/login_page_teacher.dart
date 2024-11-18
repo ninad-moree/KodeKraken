@@ -36,49 +36,35 @@ class _LoginPageTeacherState extends State<LoginPageTeacher> {
             children: [
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                width: MediaQuery.of(context).size.width * 0.2,
+                width: MediaQuery.of(context).size.width * 0.21,
                 decoration: BoxDecoration(
                   color: ColorConstants.kPrimaryColor,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     SizedBox(height: 20),
                     Text(
                       "KodeKraken",
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
-                    SizedBox(height: 100),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                     Text(
-                      "Start your",
+                      "Start your journey with us.",
                       style: TextStyle(fontSize: 32, color: Colors.white),
-                    ),
-                    Text(
-                      "journey with us.",
-                      style: TextStyle(fontSize: 32, color: Colors.white),
+                      softWrap: true,
+                      overflow: TextOverflow.visible,
                     ),
                     SizedBox(height: 12),
                     Text(
-                      "Discover the world's best",
+                      "Discover the world's best teacher platform for grading and checking student's assignments.",
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.grey,
                       ),
-                    ),
-                    Text(
-                      "teacher platform for",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    Text(
-                      "grading and checking student's assignments.",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey,
-                      ),
+                      softWrap: true,
+                      overflow: TextOverflow.visible,
                     ),
                   ],
                 ),
@@ -88,7 +74,6 @@ class _LoginPageTeacherState extends State<LoginPageTeacher> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 20),
                     Text(
                       "Login",
                       style: TextStyle(fontSize: 32),
@@ -110,7 +95,7 @@ class _LoginPageTeacherState extends State<LoginPageTeacher> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 60),
+                    SizedBox(height: 35),
                     Text(
                       "Email",
                       style: TextStyle(fontSize: 16, color: Colors.grey[700]),
