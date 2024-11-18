@@ -76,7 +76,7 @@ class _LoginPageStudentState extends State<LoginPageStudent> {
                       ),
                     ),
                     Text(
-                      "plagerism detection and versioning",
+                      "plagerism detection and versioning.",
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.grey,
