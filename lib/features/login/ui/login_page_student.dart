@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_declarations, prefer_const_constructors
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kode_kraken/constants/color_constants.dart';
@@ -95,9 +96,22 @@ class _LoginPageStudentState extends State<LoginPageStudent> {
                       "Login",
                       style: TextStyle(fontSize: 32),
                     ),
-                    Text(
-                      "Don't have an account? Register",
-                      style: TextStyle(fontSize: 16),
+                    RichText(
+                      text: TextSpan(
+                        text: "Don't have an account? ",
+                        style: TextStyle(fontSize: 16, color: Colors.black),
+                        children: [
+                          TextSpan(
+                            text: 'Register',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: ColorConstants.kPrimaryColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            recognizer: TapGestureRecognizer()..onTap = () {},
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(height: 60),
                     Text(
