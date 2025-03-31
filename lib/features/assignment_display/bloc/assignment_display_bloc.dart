@@ -79,11 +79,11 @@ class AssignmentDisplayBloc extends Bloc<AssignmentDisplayEvent, AssignmentDispl
           ClassifyLearner()
               .getTimeDifferenceInMinutes((studentAssignment.versions[studentAssignment.versions.length - 1]['date'] as Timestamp).toDate())
               .toDouble(),
-          plagiarismResponse['similarity_score'],
+          plagiarismResponse['plagerism_score'],
         );
 
         log("Is Plagerised: ${plagiarismResponse['is_plagiarized']}");
-        log("Score: ${plagiarismResponse['similarity_score']}");
+        log("Score: ${plagiarismResponse['plagerism_score']}");
         log(("Learner: ${learnerResponse['learner_type']}"));
 
         await Database.codeExecutedCorrectly(code, studentAssignment);
