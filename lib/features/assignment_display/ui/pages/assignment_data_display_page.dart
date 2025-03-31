@@ -227,14 +227,91 @@ class _AssignmentDataDisplayPageState extends State<AssignmentDataDisplayPage> {
         ),
         Align(
           alignment: Alignment.topCenter,
-          child: ConfettiWidget(
-            confettiController: confettiController,
-            maxBlastForce: 5, // set a lower max blast force
-            minBlastForce: 2, // set a lower min blast force
-            emissionFrequency: 0.01,
-            numberOfParticles: 100, // a lot of particles at once
-            gravity: 0.69,
-            blastDirectionality: BlastDirectionality.explosive,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ConfettiWidget(
+                confettiController: confettiController,
+                maxBlastForce: 5, // set a lower max blast force
+                minBlastForce: 2, // set a lower min blast force
+                emissionFrequency: 0.01,
+                numberOfParticles: 50, // a lot of particles at once
+                gravity: 0.69,
+                blastDirectionality: BlastDirectionality.explosive,
+              ),
+              ConfettiWidget(
+                confettiController: confettiController,
+                maxBlastForce: 5, // set a lower max blast force
+                minBlastForce: 2, // set a lower min blast force
+                emissionFrequency: 0.01,
+                numberOfParticles: 50, // a lot of particles at once
+                gravity: 0.69,
+                blastDirectionality: BlastDirectionality.explosive,
+              ),
+              ConfettiWidget(
+                confettiController: confettiController,
+                maxBlastForce: 5, // set a lower max blast force
+                minBlastForce: 2, // set a lower min blast force
+                emissionFrequency: 0.01,
+                numberOfParticles: 50, // a lot of particles at once
+                gravity: 0.69,
+                blastDirectionality: BlastDirectionality.explosive,
+              ),
+              ConfettiWidget(
+                confettiController: confettiController,
+                maxBlastForce: 5, // set a lower max blast force
+                minBlastForce: 2, // set a lower min blast force
+                emissionFrequency: 0.01,
+                numberOfParticles: 50, // a lot of particles at once
+                gravity: 0.69,
+                blastDirectionality: BlastDirectionality.explosive,
+              ),
+              ConfettiWidget(
+                confettiController: confettiController,
+                maxBlastForce: 5, // set a lower max blast force
+                minBlastForce: 2, // set a lower min blast force
+                emissionFrequency: 0.01,
+                numberOfParticles: 50, // a lot of particles at once
+                gravity: 0.69,
+                blastDirectionality: BlastDirectionality.explosive,
+              ),
+              ConfettiWidget(
+                confettiController: confettiController,
+                maxBlastForce: 5, // set a lower max blast force
+                minBlastForce: 2, // set a lower min blast force
+                emissionFrequency: 0.01,
+                numberOfParticles: 50, // a lot of particles at once
+                gravity: 0.69,
+                blastDirectionality: BlastDirectionality.explosive,
+              ),
+              ConfettiWidget(
+                confettiController: confettiController,
+                maxBlastForce: 5, // set a lower max blast force
+                minBlastForce: 2, // set a lower min blast force
+                emissionFrequency: 0.01,
+                numberOfParticles: 50, // a lot of particles at once
+                gravity: 0.69,
+                blastDirectionality: BlastDirectionality.explosive,
+              ),
+              ConfettiWidget(
+                confettiController: confettiController,
+                maxBlastForce: 5, // set a lower max blast force
+                minBlastForce: 2, // set a lower min blast force
+                emissionFrequency: 0.01,
+                numberOfParticles: 50, // a lot of particles at once
+                gravity: 0.69,
+                blastDirectionality: BlastDirectionality.explosive,
+              ),
+              ConfettiWidget(
+                confettiController: confettiController,
+                maxBlastForce: 5, // set a lower max blast force
+                minBlastForce: 2, // set a lower min blast force
+                emissionFrequency: 0.01,
+                numberOfParticles: 50, // a lot of particles at once
+                gravity: 0.69,
+                blastDirectionality: BlastDirectionality.explosive,
+              ),
+            ],
           ),
         ),
       ],
