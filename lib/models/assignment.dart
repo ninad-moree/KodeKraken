@@ -5,6 +5,9 @@ class Assignment {
   String expectedOutput;
   String testCases;
   String language;
+  bool isPlagerised;
+  double plagerismScore;
+  String referenceCode;
 
   Assignment({
     required this.title,
@@ -13,6 +16,9 @@ class Assignment {
     required this.expectedOutput,
     required this.testCases,
     required this.language,
+    required this.isPlagerised,
+    required this.plagerismScore,
+    required this.referenceCode,
   });
 
   factory Assignment.fromJson(Map<String, dynamic> json) {
@@ -23,6 +29,9 @@ class Assignment {
       expectedOutput: json['expectedOutput'] ?? '',
       testCases: json['testcases'] ?? '',
       language: json['language'] ?? '',
+      isPlagerised: json['isPlagerised'] ?? false,
+      plagerismScore: json['plagerismScore'] ?? 0.0,
+      referenceCode: json['referenceCode'] ?? '',
     );
   }
 }

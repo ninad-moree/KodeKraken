@@ -1,26 +1,26 @@
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kode_kraken/features/assignment_display/bloc/assignment_display_bloc.dart';
-import 'package:kode_kraken/models/assignment.dart';
 
+import '../../../../models/assignment.dart';
 import '../../../../models/student.dart';
 import '../../../../models/student_assignment.dart';
+import '../../bloc/assignment_display_bloc.dart';
 import '../widgets/version_display.dart';
 
 class AssignmentDataDisplayPage extends StatefulWidget {
   final Assignment assignment;
   final StudentAssignment? studentAssignment;
   final Student student;
-  const AssignmentDataDisplayPage(
-      {super.key,
-      required this.assignment,
-      required this.studentAssignment,
-      required this.student});
+  const AssignmentDataDisplayPage({
+    super.key,
+    required this.assignment,
+    required this.studentAssignment,
+    required this.student,
+  });
 
   @override
-  State<AssignmentDataDisplayPage> createState() =>
-      _AssignmentDataDisplayPageState();
+  State<AssignmentDataDisplayPage> createState() => _AssignmentDataDisplayPageState();
 }
 
 class _AssignmentDataDisplayPageState extends State<AssignmentDataDisplayPage> {
@@ -35,8 +35,7 @@ class _AssignmentDataDisplayPageState extends State<AssignmentDataDisplayPage> {
 
   @override
   void initState() {
-    confettiController =
-        ConfettiController(duration: const Duration(seconds: 1));
+    confettiController = ConfettiController(duration: const Duration(seconds: 1));
     playConfetti();
     super.initState();
   }
@@ -54,8 +53,7 @@ class _AssignmentDataDisplayPageState extends State<AssignmentDataDisplayPage> {
       children: [
         Scaffold(
           appBar: AppBar(
-            title: Text(
-                "${widget.assignment.assignmentNumber}. ${widget.assignment.title}"),
+            title: Text("${widget.assignment.assignmentNumber}. ${widget.assignment.title}"),
           ),
           body: Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -82,11 +80,9 @@ class _AssignmentDataDisplayPageState extends State<AssignmentDataDisplayPage> {
                             ),
                             Container(
                               decoration: BoxDecoration(
-                                color: widget.studentAssignment!.status ==
-                                        "accepted"
+                                color: widget.studentAssignment!.status == "accepted"
                                     ? Colors.green
-                                    : widget.studentAssignment!.status ==
-                                            "rejected"
+                                    : widget.studentAssignment!.status == "rejected"
                                         ? Colors.red
                                         : Colors.blue,
                                 borderRadius: BorderRadius.circular(10),
@@ -99,16 +95,14 @@ class _AssignmentDataDisplayPageState extends State<AssignmentDataDisplayPage> {
                                           Icons.check,
                                           color: Colors.white,
                                         )
-                                      : widget.studentAssignment!.status ==
-                                              "rejected"
+                                      : widget.studentAssignment!.status == "rejected"
                                           ? const Icon(
                                               Icons.close,
                                               color: Colors.white,
                                             )
                                           : Container(),
                                   Text(
-                                    widget.studentAssignment!.status
-                                        .toUpperCase(),
+                                    widget.studentAssignment!.status.toUpperCase(),
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 16,
@@ -127,6 +121,14 @@ class _AssignmentDataDisplayPageState extends State<AssignmentDataDisplayPage> {
                           ),
                         ),
                         const SizedBox(height: 20),
+                        Text(
+                          'Plagerised: ${widget.assignment.isPlagerised}',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 20),
                         const Text(
                           "Submissions:",
                           style: TextStyle(
@@ -137,8 +139,7 @@ class _AssignmentDataDisplayPageState extends State<AssignmentDataDisplayPage> {
                         const SizedBox(height: 20),
                         widget.studentAssignment!.versions.isEmpty
                             ? const Center(
-                                child:
-                                    Text('No submissions have been made yet.'),
+                                child: Text('No submissions have been made yet.'),
                               )
                             : Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -183,22 +184,15 @@ class _AssignmentDataDisplayPageState extends State<AssignmentDataDisplayPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
-                          onPressed: () =>
-                              BlocProvider.of<AssignmentDisplayBloc>(context)
-                                  .submitVersion(
-                                      codeController.text,
-                                      widget.student,
-                                      widget.assignment,
-                                      widget.studentAssignment!),
+                          onPressed: () => BlocProvider.of<AssignmentDisplayBloc>(context)
+                              .submitVersion(codeController.text, widget.student, widget.assignment, widget.studentAssignment!),
                           child: const Text('Submit Version'),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
-                          onPressed: () =>
-                              BlocProvider.of<AssignmentDisplayBloc>(context)
-                                  .submitAssignment(
+                          onPressed: () => BlocProvider.of<AssignmentDisplayBloc>(context).submitAssignment(
                             codeController.text,
                             widget.student,
                             widget.assignment,
