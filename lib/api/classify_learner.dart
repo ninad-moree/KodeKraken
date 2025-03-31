@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 
-class PlagiarismChecker {
-  final String apiUrl = "http://127.0.0.1:8000/check_plagiarism/";
+class ClassifyLearner {
+  final String apiUrl = "http://127.0.0.1:8000/classify_learner";
 
-  Future<Map<String, dynamic>> checkPlagiarism(String referenceCode, String submittedCode) async {
+  Future<Map<String, dynamic>> classifyLearner(int totalVersions, double timeDifference, double plagerismScore) async {
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
@@ -13,8 +13,9 @@ class PlagiarismChecker {
           "Content-Type": "application/json",
         },
         body: jsonEncode({
-          "reference_code": referenceCode,
-          "submitted_code": submittedCode,
+          "total_versions": totalVersions,
+          "time_difference": timeDifference,
+          "plagiarism_score": plagerismScore,
         }),
       );
 
@@ -29,5 +30,14 @@ class PlagiarismChecker {
       log("Exception: $e");
       return {"Error": e};
     }
+  }
+
+  int getTimeDifferenceInMinutes(DateTime lastVersionDate) {
+    DateTime currentDateTime = DateTime.now();
+
+    Duration difference = currentDateTime.difference(lastVersionDate);
+    int differenceInMinutes = difference.inMinutes;
+
+    return differenceInMinutes;
   }
 }

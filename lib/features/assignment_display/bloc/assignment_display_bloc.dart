@@ -3,9 +3,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:bloc/bloc.dart';
+import 'package:kode_kraken/api/classify_learner.dart';
 
 import '../../../api/check_plagerism.dart';
 import '../../../models/assignment.dart';
@@ -39,7 +41,6 @@ class AssignmentDisplayBloc extends Bloc<AssignmentDisplayEvent, AssignmentDispl
   ) async {
     emit(AssignmentDisplayLoading());
     var response = await http.post(
-      // Uri.parse("https://online-code-compiler.p.rapidapi.com/v1/"),
       Uri.parse("https://code-compiler.p.rapidapi.com/v2"),
       headers: {
         'Content-Type': 'application/json',
@@ -73,8 +74,17 @@ class AssignmentDisplayBloc extends Bloc<AssignmentDisplayEvent, AssignmentDispl
           code,
         );
 
+        Map<String, dynamic> learnerResponse = await ClassifyLearner().classifyLearner(
+          studentAssignment.versions.length,
+          ClassifyLearner()
+              .getTimeDifferenceInMinutes((studentAssignment.versions[studentAssignment.versions.length - 1]['date'] as Timestamp).toDate())
+              .toDouble(),
+          plagiarismResponse['similarity_score'],
+        );
+
         log("Is Plagerised: ${plagiarismResponse['is_plagiarized']}");
         log("Score: ${plagiarismResponse['similarity_score']}");
+        log(("Learner: ${learnerResponse['learner_type']}"));
 
         await Database.codeExecutedCorrectly(code, studentAssignment);
       } else {
