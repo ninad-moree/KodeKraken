@@ -75,7 +75,7 @@ class AssignmentDisplayBloc extends Bloc<AssignmentDisplayEvent, AssignmentDispl
         );
 
         Map<String, dynamic> learnerResponse = await ClassifyLearner().classifyLearner(
-          studentAssignment.versions.length,
+          studentAssignment.versions.length + 1,
           ClassifyLearner()
               .getTimeDifferenceInMinutes((studentAssignment.versions[studentAssignment.versions.length - 1]['date'] as Timestamp).toDate())
               .toDouble(),
