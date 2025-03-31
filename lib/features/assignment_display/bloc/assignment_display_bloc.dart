@@ -18,18 +18,28 @@ import '../../../services/database.dart';
 part 'assignment_display_event.dart';
 part 'assignment_display_state.dart';
 
-class AssignmentDisplayBloc extends Bloc<AssignmentDisplayEvent, AssignmentDisplayState> {
+class AssignmentDisplayBloc
+    extends Bloc<AssignmentDisplayEvent, AssignmentDisplayState> {
   AssignmentDisplayBloc() : super(AssignmentDisplayInitial());
 
-  FutureOr<void> getAssignmentDetails(Assignment assignment, Student student, String subject) async {
+  FutureOr<void> getAssignmentDetails(
+      Assignment assignment, Student student, String subject) async {
     emit(AssignmentDisplayLoading());
-    var studentAssignment = await Database.getAssignmentDetails(assignment, student);
+    var studentAssignment =
+        await Database.getAssignmentDetails(assignment, student);
     if (studentAssignment != null) {
-      emit(AssignmentDisplayLoaded(studentAssignment: studentAssignment, assignment: assignment, student: student));
+      emit(AssignmentDisplayLoaded(
+          studentAssignment: studentAssignment,
+          assignment: assignment,
+          student: student));
       log(studentAssignment.toString());
     } else {
-      studentAssignment = await Database.createStudentAssignment(student, assignment, subject);
-      emit(AssignmentDisplayLoaded(assignment: assignment, student: student, studentAssignment: studentAssignment));
+      studentAssignment =
+          await Database.createStudentAssignment(student, assignment, subject);
+      emit(AssignmentDisplayLoaded(
+          assignment: assignment,
+          student: student,
+          studentAssignment: studentAssignment));
     }
   }
 
@@ -69,15 +79,20 @@ class AssignmentDisplayBloc extends Bloc<AssignmentDisplayEvent, AssignmentDispl
         emit(AssignmentDisplaySuccess(message: "Correct Answer"));
 
         // Plagerism
-        Map<String, dynamic> plagiarismResponse = await PlagiarismChecker().checkPlagiarism(
+        Map<String, dynamic> plagiarismResponse =
+            await PlagiarismChecker().checkPlagiarism(
           assignment.referenceCode,
           code,
         );
 
-        Map<String, dynamic> learnerResponse = await ClassifyLearner().classifyLearner(
+        Map<String, dynamic> learnerResponse =
+            await ClassifyLearner().classifyLearner(
           studentAssignment.versions.length + 1,
           ClassifyLearner()
-              .getTimeDifferenceInMinutes((studentAssignment.versions[studentAssignment.versions.length - 1]['date'] as Timestamp).toDate())
+              .getTimeDifferenceInMinutes((studentAssignment
+                          .versions[studentAssignment.versions.length - 1]
+                      ['date'] as Timestamp)
+                  .toDate())
               .toDouble(),
           plagiarismResponse['plagerism_score'],
         );
@@ -86,7 +101,12 @@ class AssignmentDisplayBloc extends Bloc<AssignmentDisplayEvent, AssignmentDispl
         log("Score: ${plagiarismResponse['plagerism_score']}");
         log(("Learner: ${learnerResponse['learner_type']}"));
 
-        await Database.codeExecutedCorrectly(code, studentAssignment);
+        await Database.codeExecutedCorrectly(
+            code,
+            studentAssignment,
+            plagiarismResponse['is_plagiarized'],
+            plagiarismResponse['plagerism_score'],
+            learnerResponse['learner_type']);
       } else {
         emit(AssignmentDisplayFailure(message: "Wrong Answer"));
         await Database.codeExecutedIncorrectly(code, studentAssignment);
@@ -97,7 +117,8 @@ class AssignmentDisplayBloc extends Bloc<AssignmentDisplayEvent, AssignmentDispl
     }
   }
 
-  FutureOr<void> submitVersion(String code, Student student, Assignment assignment, StudentAssignment studentAssignment) async {
+  FutureOr<void> submitVersion(String code, Student student,
+      Assignment assignment, StudentAssignment studentAssignment) async {
     emit(AssignmentDisplayLoading());
     await Database.codeVersionSubmit(code, studentAssignment);
     getAssignmentDetails(assignment, student, studentAssignment.subject);

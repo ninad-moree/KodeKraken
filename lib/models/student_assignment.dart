@@ -4,6 +4,9 @@ class StudentAssignment {
   String status;
   List versions;
   String subject;
+  bool isPlagiarized;
+  double plagiarismScore;
+  String learnerType;
   //String assignemntID; //
 
   StudentAssignment({
@@ -12,6 +15,9 @@ class StudentAssignment {
     required this.status,
     required this.versions,
     required this.subject,
+    required this.isPlagiarized,
+    required this.plagiarismScore,
+    required this.learnerType,
     //required this.assignemntID
   });
 
@@ -22,6 +28,9 @@ class StudentAssignment {
       status: json['status'] ?? '',
       versions: json['versions'] ?? [],
       subject: json['subject'] ?? '',
+      isPlagiarized: json['isPlagerised'] ?? false,
+      plagiarismScore: json['plagerismScore'] ?? 0.0,
+      learnerType: json['learnerType'] ?? '',
       //assignemntID: json['assignmentID'] ?? '', //
     );
   }
@@ -33,6 +42,9 @@ class StudentAssignment {
       'status': studentAssignment.status,
       'versions': studentAssignment.versions,
       'subject': studentAssignment.subject,
+      'isPlagerised': studentAssignment.isPlagiarized,
+      'plagerismScore': studentAssignment.plagiarismScore,
+      'learnerType': studentAssignment.learnerType,
       //'assignmentID': studentAssignment.assignemntID,
     };
   }

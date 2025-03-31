@@ -5,8 +5,7 @@ class Assignment {
   String expectedOutput;
   String testCases;
   String language;
-  bool isPlagerised;
-  double plagerismScore;
+
   String referenceCode;
 
   Assignment({
@@ -16,8 +15,6 @@ class Assignment {
     required this.expectedOutput,
     required this.testCases,
     required this.language,
-    required this.isPlagerised,
-    required this.plagerismScore,
     required this.referenceCode,
   });
 
@@ -29,8 +26,6 @@ class Assignment {
       expectedOutput: json['expectedOutput'] ?? '',
       testCases: json['testcases'] ?? '',
       language: json['language'] ?? '',
-      isPlagerised: json['isPlagerised'] ?? false,
-      plagerismScore: json['plagerismScore'] ?? 0.0,
       referenceCode: json['referenceCode'] ?? '',
     );
   }
