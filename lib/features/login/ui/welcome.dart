@@ -45,9 +45,7 @@ class WelcomePage extends StatelessWidget {
         child: Container(
           height: MediaQuery.of(context).size.height * 0.75,
           width: MediaQuery.of(context).size.width * 0.61,
-          decoration: BoxDecoration(
-              border: Border.all(color: Colors.transparent),
-              borderRadius: BorderRadius.circular(25)),
+          decoration: BoxDecoration(border: Border.all(color: Colors.transparent), borderRadius: BorderRadius.circular(25)),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -71,8 +69,9 @@ class WelcomePage extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.75,
                   decoration: BoxDecoration(
                     image: const DecorationImage(
-                        image: AssetImage('assets/images/student.png'),
-                        fit: BoxFit.cover),
+                      image: AssetImage('assets/images/student.png'),
+                      fit: BoxFit.cover,
+                    ),
                     border: Border.all(color: Colors.transparent),
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(25),
@@ -107,9 +106,7 @@ class WelcomePage extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * 0.3037,
                   height: MediaQuery.of(context).size.height * 0.75,
                   decoration: BoxDecoration(
-                    image: const DecorationImage(
-                        image: AssetImage('assets/images/teacher.png'),
-                        fit: BoxFit.cover),
+                    image: const DecorationImage(image: AssetImage('assets/images/teacher.png'), fit: BoxFit.cover),
                     border: Border.all(color: Colors.transparent),
                     borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(25),

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, deprecated_member_use
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -86,17 +86,13 @@ class _LoginPageTeacherState extends State<LoginPageTeacher> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(
-                    left: 40, right: 20, top: 12, bottom: 12),
+                padding: const EdgeInsets.only(left: 40, right: 20, top: 12, bottom: 12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       "Login",
-                      style: TextStyle(
-                          fontSize: 32,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 32, color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                     RichText(
                       text: TextSpan(
@@ -133,8 +129,7 @@ class _LoginPageTeacherState extends State<LoginPageTeacher> {
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           hintText: 'Email',
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 25, vertical: 20),
+                          contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide(color: ColorConstants.grey),
@@ -157,8 +152,7 @@ class _LoginPageTeacherState extends State<LoginPageTeacher> {
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           hintText: 'Password',
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 25, vertical: 20),
+                          contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide(color: ColorConstants.grey),
@@ -177,16 +171,14 @@ class _LoginPageTeacherState extends State<LoginPageTeacher> {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context) => BlocProvider(
-                                    create: (context) => StudentPageBloc()
-                                      ..getAllSubjects(state.student!),
+                                    create: (context) => StudentPageBloc()..getAllSubjects(state.student!),
                                     child: TeacherOption(),
                                   ),
                                 ),
                               );
                             }
                             if (state is LoginFailure) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text(state.message)));
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message)));
                             }
                           },
                           builder: (context, state) {
