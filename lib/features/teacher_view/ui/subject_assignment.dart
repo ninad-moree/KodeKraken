@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kode_kraken/features/teacher_view/ui/add_assignment.dart';
-import 'package:kode_kraken/features/teacher_view/ui/edit_assignment.dart';
-import 'package:kode_kraken/models/assignment.dart';
 
 import '../../../constants/color_constants.dart';
+import '../../../models/assignment.dart';
+import 'add_assignment.dart';
+import 'edit_assignment.dart';
 
 class SubjectAssignment extends StatelessWidget {
   const SubjectAssignment({
@@ -49,7 +49,10 @@ class SubjectAssignment extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (BuildContext context) => AddAssignmentPage(subject: subject, batch: batch),
+                    builder: (BuildContext context) => AddAssignmentPage(
+                      subject: subject,
+                      batch: batch,
+                    ),
                   ),
                 );
               },
