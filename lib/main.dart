@@ -27,6 +27,11 @@ class MyApp extends StatelessWidget {
           title: 'KodeKraken',
           theme: ThemeData(
             scaffoldBackgroundColor: ColorConstants.kBackgroundColor,
+            appBarTheme: const AppBarTheme(
+              backgroundColor: ColorConstants.kBackgroundColor,
+              iconTheme: IconThemeData(color: ColorConstants.kPrimaryColor),
+              elevation: 0,
+            ),
           ),
           routes: {
             '/': (ctx) => const WelcomePage(),
