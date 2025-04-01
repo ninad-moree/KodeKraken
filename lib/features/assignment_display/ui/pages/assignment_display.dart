@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kode_kraken/features/assignment_display/ui/pages/assignment_data_display_page.dart';
+
 import '../../../../models/assignment.dart';
 import '../../../../models/student.dart';
 import '../../bloc/assignment_display_bloc.dart';
+import 'assignment_data_display_page.dart';
 
 class AssignmentDisplay extends StatelessWidget {
   final Assignment assignment;
   final Student student;
   final String subject;
-  const AssignmentDisplay(
-      {super.key,
-      required this.assignment,
-      required this.student,
-      required this.subject});
+  const AssignmentDisplay({
+    super.key,
+    required this.assignment,
+    required this.student,
+    required this.subject,
+  });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AssignmentDisplayBloc()
-        ..getAssignmentDetails(assignment, student, subject),
+      create: (context) => AssignmentDisplayBloc()..getAssignmentDetails(assignment, student, subject),
       child: BlocConsumer<AssignmentDisplayBloc, AssignmentDisplayState>(
         listener: (context, state) {
           if (state is AssignmentDisplaySuccess) {

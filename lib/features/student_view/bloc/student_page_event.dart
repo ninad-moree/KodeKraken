@@ -12,3 +12,5 @@ class StudentPageSubjectSelectEvent extends StudentPageEvent {
   List assignments;
   StudentPageSubjectSelectEvent({required this.assignments, required this.subject});
 }
+
+class StudentPageBackEvent extends StudentPageEvent {}
