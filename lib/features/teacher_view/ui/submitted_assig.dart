@@ -4,6 +4,8 @@ import 'package:kode_kraken/features/teacher_view/ui/assignment_status.dart';
 import 'package:kode_kraken/models/student_assignment.dart';
 import 'package:kode_kraken/services/database.dart';
 
+import '../../../constants/color_constants.dart';
+
 class SubmittedAssignments extends StatelessWidget {
   final String rollNumber;
   const SubmittedAssignments({super.key, required this.rollNumber});
@@ -36,12 +38,8 @@ class SubmittedAssignments extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (BuildContext context) => AssignmentStatus(
                             rollNumber: rollNumber.toString(),
-                            subject: (data.values.toList()[index][0]
-                                    as StudentAssignment)
-                                .subject,
-                            assignments: (data[(data.values.toList()[index][0]
-                                    as StudentAssignment)
-                                .subject]),
+                            subject: (data.values.toList()[index][0] as StudentAssignment).subject,
+                            assignments: (data[(data.values.toList()[index][0] as StudentAssignment).subject]),
                           ),
                         ),
                       );
@@ -60,8 +58,7 @@ class SubmittedAssignments extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Text(
-                                "Assignments: ${data.values.toList()[index].length}")
+                            Text("Assignments: ${data.values.toList()[index].length}")
                           ],
                         ),
                       ),
@@ -79,7 +76,7 @@ class SubmittedAssignments extends StatelessWidget {
               child: SizedBox(
                 height: 100,
                 width: 100,
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(color: ColorConstants.kPrimaryColor),
               ),
             );
           }
@@ -87,7 +84,7 @@ class SubmittedAssignments extends StatelessWidget {
             child: SizedBox(
               height: 100,
               width: 100,
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(color: ColorConstants.kPrimaryColor),
             ),
           );
         },

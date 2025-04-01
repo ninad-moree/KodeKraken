@@ -21,7 +21,7 @@ class SubjectDisplay extends StatelessWidget {
           if (state is StudentPageInitial) {
             return const Text('Initial');
           } else if (state is StudentPageLoading) {
-            return const CircularProgressIndicator();
+            return const CircularProgressIndicator(color: ColorConstants.kPrimaryColor);
           } else if (state is StudentPageLoaded) {
             return Scaffold(
               appBar: AppBar(

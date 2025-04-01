@@ -38,7 +38,7 @@ class BatchDisplay extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(color: ColorConstants.kPrimaryColor),
             );
           } else if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
@@ -87,11 +87,17 @@ class BatchDisplay extends StatelessWidget {
               );
             } else {
               return const Center(
-                child: Text("No batches found."),
+                child: Text(
+                  "No batches found.",
+                  style: TextStyle(
+                    color: ColorConstants.kPrimaryColor,
+                    fontSize: 32,
+                  ),
+                ),
               );
             }
           }
-          return const CircularProgressIndicator();
+          return const CircularProgressIndicator(color: ColorConstants.kPrimaryColor);
         },
       ),
     );

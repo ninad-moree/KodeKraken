@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../constants/color_constants.dart';
 import '../../../../models/assignment.dart';
 import '../../../../models/student.dart';
 import '../../bloc/assignment_display_bloc.dart';
@@ -46,7 +47,7 @@ class AssignmentDisplay extends StatelessWidget {
                 child: SizedBox(
                   height: 100,
                   width: 100,
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(color: ColorConstants.kPrimaryColor),
                 ),
               ),
             );
