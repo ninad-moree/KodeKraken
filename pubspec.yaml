@@ -21,6 +21,7 @@ dependencies:
   http: ^0.13.6
   flutter_highlight: ^0.7.0
   confetti: ^0.7.0
+  flutter_svg: ^2.0.9
 
 dev_dependencies:
   flutter_test:
