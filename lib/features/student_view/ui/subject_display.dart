@@ -18,7 +18,6 @@ class SubjectDisplay extends StatelessWidget {
           student.name,
           style: const TextStyle(color: Colors.white),
         ),
-        backgroundColor: ColorConstants.kPrimaryColor,
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -26,7 +25,8 @@ class SubjectDisplay extends StatelessWidget {
               backgroundColor: Colors.white,
               child: Text(
                 student.name[0].toUpperCase(),
-                style: const TextStyle(color: ColorConstants.kPrimaryColor, fontSize: 24),
+                style: const TextStyle(
+                    color: ColorConstants.kPrimaryColor, fontSize: 24),
               ),
             ),
           ),
@@ -71,7 +71,8 @@ class SubjectDisplay extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Text("Assignments: ${state.subjects.values.toList()[index].length}")
+                            Text(
+                                "Assignments: ${state.subjects.values.toList()[index].length}")
                           ],
                         ),
                       ),
@@ -117,7 +118,8 @@ class SubjectDisplay extends StatelessWidget {
                               textAlign: TextAlign.center,
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 12),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12),
                               child: Text(
                                 state.assignments[index].description.toString(),
                                 style: const TextStyle(

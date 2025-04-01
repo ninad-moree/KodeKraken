@@ -2,6 +2,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kode_kraken/features/teacher_view/ui/teacher_option.dart';
 import '../../../constants/color_constants.dart';
 import '../../student_view/bloc/student_page_bloc.dart';
@@ -28,7 +29,7 @@ class _LoginPageTeacherState extends State<LoginPageTeacher> {
           height: MediaQuery.of(context).size.height * 0.75,
           width: MediaQuery.of(context).size.width * 0.61,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: ColorConstants.grey,
             border: Border.all(color: Colors.transparent),
             borderRadius: BorderRadius.circular(10),
           ),
@@ -38,30 +39,45 @@ class _LoginPageTeacherState extends State<LoginPageTeacher> {
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 width: MediaQuery.of(context).size.width * 0.21,
                 decoration: BoxDecoration(
-                  color: ColorConstants.kPrimaryColor,
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/login_bg.png'),
+                    fit: BoxFit.cover,
+                  ),
+                  color: Colors.white,
+                  border: Border.all(color: Colors.transparent),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 20),
-                    Text(
-                      "KodeKraken",
-                      style: TextStyle(fontSize: 16, color: Colors.white),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-                    Text(
-                      "Start your journey with us.",
-                      style: TextStyle(fontSize: 32, color: Colors.white),
-                      softWrap: true,
-                      overflow: TextOverflow.visible,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          color: ColorConstants.black,
+                          'assets/images/logo.svg',
+                          width: 50,
+                          height: 50,
+                          fit: BoxFit.contain,
+                        ),
+                        const Text(
+                          'KodeKraken',
+                          style: TextStyle(
+                            color: ColorConstants.black,
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(height: 12),
                     Text(
-                      "Discover the world's best teacher platform for grading and checking student's assignments.",
+                      "Discover the world's best student submission platform for plagiarism detection and versioning.",
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.grey,
+                        color: ColorConstants.grey,
                       ),
                       softWrap: true,
                       overflow: TextOverflow.visible,
@@ -70,18 +86,25 @@ class _LoginPageTeacherState extends State<LoginPageTeacher> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 40, right: 20, top: 12, bottom: 12),
+                padding: const EdgeInsets.only(
+                    left: 40, right: 20, top: 12, bottom: 12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       "Login",
-                      style: TextStyle(fontSize: 32),
+                      style: TextStyle(
+                          fontSize: 32,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
                     ),
                     RichText(
                       text: TextSpan(
                         text: "Don't have an account? ",
-                        style: TextStyle(fontSize: 16, color: Colors.black),
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white.withAlpha(150),
+                        ),
                         children: [
                           TextSpan(
                             text: 'Register',
@@ -98,21 +121,23 @@ class _LoginPageTeacherState extends State<LoginPageTeacher> {
                     SizedBox(height: 35),
                     Text(
                       "Email",
-                      style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                      style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                     SizedBox(height: 8),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.25,
                       child: TextField(
+                        style: TextStyle(color: Colors.white),
                         textAlign: TextAlign.start,
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           hintText: 'Email',
-                          contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 25, vertical: 20),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: Colors.black),
+                            borderSide: BorderSide(color: ColorConstants.grey),
                           ),
                         ),
                       ),
@@ -120,21 +145,23 @@ class _LoginPageTeacherState extends State<LoginPageTeacher> {
                     SizedBox(height: 20),
                     Text(
                       "Password",
-                      style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                      style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                     SizedBox(height: 8),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.25,
                       child: TextField(
+                        style: TextStyle(color: Colors.white),
                         textAlign: TextAlign.start,
                         controller: passwordController,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           hintText: 'Password',
-                          contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 25, vertical: 20),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: Colors.black),
+                            borderSide: BorderSide(color: ColorConstants.grey),
                           ),
                         ),
                       ),
@@ -150,14 +177,16 @@ class _LoginPageTeacherState extends State<LoginPageTeacher> {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context) => BlocProvider(
-                                    create: (context) => StudentPageBloc()..getAllSubjects(state.student!),
+                                    create: (context) => StudentPageBloc()
+                                      ..getAllSubjects(state.student!),
                                     child: TeacherOption(),
                                   ),
                                 ),
                               );
                             }
                             if (state is LoginFailure) {
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message)));
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text(state.message)));
                             }
                           },
                           builder: (context, state) {
@@ -173,15 +202,18 @@ class _LoginPageTeacherState extends State<LoginPageTeacher> {
                               // );
                             }
                             return SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.125,
+                              width: MediaQuery.of(context).size.width * 0.08,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  foregroundColor: Colors.white,
                                   backgroundColor: ColorConstants.kPrimaryColor,
-                                  shadowColor: Colors.grey,
                                   elevation: 5, // Elevation of the button
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 30,
+                                    vertical: 15,
+                                  ),
                                 ),
                                 onPressed: () {
                                   BlocProvider.of<LoginBloc>(context).add(
@@ -193,7 +225,10 @@ class _LoginPageTeacherState extends State<LoginPageTeacher> {
                                 },
                                 child: const Text(
                                   'Login',
-                                  style: TextStyle(color: Colors.white, fontSize: 24),
+                                  style: TextStyle(
+                                    color: ColorConstants.black,
+                                    fontSize: 24,
+                                  ),
                                 ),
                               ),
                             );
