@@ -35,6 +35,7 @@ class AssignmentDisplayBloc extends Bloc<AssignmentDisplayEvent, AssignmentDispl
 
   FutureOr<void> submitAssignment(
     String code,
+    int langId,
     Student student,
     Assignment assignment,
     StudentAssignment studentAssignment,
@@ -48,7 +49,7 @@ class AssignmentDisplayBloc extends Bloc<AssignmentDisplayEvent, AssignmentDispl
         'x-rapidapi-host': 'code-compiler.p.rapidapi.com'
       },
       body: jsonEncode({
-        'LanguageChoice': 7,
+        'LanguageChoice': langId,
         'Program': code,
         // 'input': assignment.testCases,
         // 'language': assignment.language,
@@ -61,7 +62,7 @@ class AssignmentDisplayBloc extends Bloc<AssignmentDisplayEvent, AssignmentDispl
     // log(response.body); --> {"Errors":null,"Result":"1","Stats":"No Status Available","Files":null}
 
     if (response.statusCode == 200) {
-      String output = jsonDecode(response.body)['Result'];
+      String output = jsonDecode(response.body)['Result'].toString();
       output = output.trim().replaceAll("\n", '');
       log("Output: $output");
       log("Expected Output: ${assignment.expectedOutput}");

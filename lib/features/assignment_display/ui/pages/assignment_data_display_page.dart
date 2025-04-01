@@ -3,8 +3,8 @@ import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kode_kraken/constants/color_constants.dart';
-// import 'package:highlight/languages/python.dart';
-// import 'package:highlight/languages/java.dart';
+import 'package:highlight/languages/python.dart';
+import 'package:highlight/languages/java.dart';
 import 'package:highlight/languages/cpp.dart';
 import 'package:flutter_highlight/themes/monokai-sublime.dart';
 
@@ -34,6 +34,20 @@ class _AssignmentDataDisplayPageState extends State<AssignmentDataDisplayPage> {
   late ConfettiController confettiController;
   late CodeController _codeController;
 
+  String _selectedLanguage = 'cpp';
+
+  final Map<String, dynamic> languageOptions = {
+    'cpp': cpp,
+    'python': python,
+    'java': java,
+  };
+
+  final Map<String, dynamic> languageId = {
+    'cpp': 7,
+    'python': 5,
+    'java': 4,
+  };
+
   void playConfetti() async {
     if (widget.studentAssignment!.status == "accepted") {
       confettiController.play();
@@ -49,7 +63,8 @@ class _AssignmentDataDisplayPageState extends State<AssignmentDataDisplayPage> {
     const source = "";
     _codeController = CodeController(
       text: source,
-      language: cpp,
+      // language: cpp,
+      language: languageOptions[_selectedLanguage],
       theme: monokaiSublimeTheme,
     );
   }
@@ -78,6 +93,35 @@ class _AssignmentDataDisplayPageState extends State<AssignmentDataDisplayPage> {
               ),
             ),
             actions: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: DropdownButton<String>(
+                    dropdownColor: ColorConstants.grey,
+                    underline: null,
+                    value: _selectedLanguage,
+                    icon: const Icon(Icons.arrow_drop_down),
+                    elevation: 16,
+                    style: const TextStyle(color: ColorConstants.kPrimaryColor),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        _selectedLanguage = newValue!;
+                        // log(languageOptions[_selectedLanguage].toString());
+                        // _codeController.language = cpp;
+                      });
+                    },
+                    items: languageOptions.keys.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value.toUpperCase()),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Container(
@@ -259,6 +303,7 @@ class _AssignmentDataDisplayPageState extends State<AssignmentDataDisplayPage> {
                             String code = _codeController.text.replaceAll('·', ' ');
                             BlocProvider.of<AssignmentDisplayBloc>(context).submitAssignment(
                               code,
+                              languageId[_selectedLanguage],
                               widget.student,
                               widget.assignment,
                               widget.studentAssignment!,
