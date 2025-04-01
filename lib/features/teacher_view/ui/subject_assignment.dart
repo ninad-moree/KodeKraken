@@ -126,66 +126,41 @@ class SubjectAssignment extends StatelessWidget {
                                   },
                                 ),
                               ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                                    decoration: const BoxDecoration(
-                                      color: ColorConstants.yellow,
-                                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                              Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                                      decoration: const BoxDecoration(
+                                        color: ColorConstants.yellow,
+                                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                                      ),
+                                      child: Text(
+                                        "${subjectAssignments[index].assignmentNumber}",
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          letterSpacing: 1.2,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
                                     ),
-                                    child: Text(
-                                      "${subjectAssignments[index].assignmentNumber}",
+                                    const SizedBox(height: 12),
+                                    Text(
+                                      subjectAssignments[index].title,
                                       style: const TextStyle(
                                         color: Colors.white,
-                                        fontSize: 24,
+                                        fontSize: 20,
                                         fontWeight: FontWeight.bold,
                                         letterSpacing: 1.2,
                                       ),
                                       textAlign: TextAlign.center,
                                     ),
-                                  ),
-                                  const SizedBox(height: 12),
-                                  Text(
-                                    subjectAssignments[index].title,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      letterSpacing: 1.2,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  // Container(
-                                  //   padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
-                                  //   decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: ColorConstants.kPrimaryColor),
-                                  //   child: Text(
-                                  //     "${subjectAssignments[index].assignmentNumber}",
-                                  //     style: const TextStyle(
-                                  //       color: Colors.white,
-                                  //       fontSize: 20,
-                                  //       fontWeight: FontWeight.bold,
-                                  //       letterSpacing: 1.2,
-                                  //     ),
-                                  //     textAlign: TextAlign.center,
-                                  //   ),
-                                  // ),
-                                  // const SizedBox(height: 12),
-                                  // Padding(
-                                  //   padding: const EdgeInsets.symmetric(horizontal: 12),
-                                  //   child: Text(
-                                  //     subjectAssignments[index].title,
-                                  //     // subjectAssignments[index].description.toString(),
-                                  //     style: const TextStyle(
-                                  //       color: Colors.white,
-                                  //       overflow: TextOverflow.ellipsis,
-                                  //     ),
-                                  //     maxLines: 5,
-                                  //   ),
-                                  // ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ],
                           ),
