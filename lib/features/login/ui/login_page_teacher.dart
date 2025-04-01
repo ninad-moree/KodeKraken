@@ -219,7 +219,7 @@ class _LoginPageTeacherState extends State<LoginPageTeacher> {
                                   'Login',
                                   style: TextStyle(
                                     color: ColorConstants.black,
-                                    fontSize: 24,
+                                    fontSize: 15,
                                   ),
                                 ),
                               ),
