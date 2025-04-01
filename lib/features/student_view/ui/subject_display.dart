@@ -12,35 +12,56 @@ class SubjectDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          student.name,
-          style: const TextStyle(color: Colors.white),
-        ),
-        backgroundColor: ColorConstants.kPrimaryColor,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              child: Text(
-                student.name[0].toUpperCase(),
-                style: const TextStyle(color: ColorConstants.kPrimaryColor, fontSize: 24),
+    // return Scaffold(
+    //   appBar: AppBar(
+    //     title: Text(
+    //       student.name,
+    //       style: const TextStyle(color: Colors.white),
+    //     ),
+    //     backgroundColor: ColorConstants.kPrimaryColor,
+    //     actions: [
+    //       Padding(
+    //         padding: const EdgeInsets.all(8.0),
+    //         child: CircleAvatar(
+    //           backgroundColor: Colors.white,
+    //           child: Text(
+    //             student.name[0].toUpperCase(),
+    //             style: const TextStyle(color: ColorConstants.kPrimaryColor, fontSize: 24),
+    //           ),
+    //         ),
+    //       ),
+    //     ],
+    //   ),
+    // body:
+    return Center(
+      child: BlocBuilder<StudentPageBloc, StudentPageState>(
+        builder: (context, state) {
+          if (state is StudentPageInitial) {
+            return const Text('Initial');
+          } else if (state is StudentPageLoading) {
+            return const CircularProgressIndicator();
+          } else if (state is StudentPageLoaded) {
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  student.name,
+                  style: const TextStyle(color: Colors.white),
+                ),
+                backgroundColor: ColorConstants.kPrimaryColor,
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      child: Text(
+                        student.name[0].toUpperCase(),
+                        style: const TextStyle(color: ColorConstants.kPrimaryColor, fontSize: 24),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ),
-        ],
-      ),
-      body: Center(
-        child: BlocBuilder<StudentPageBloc, StudentPageState>(
-          builder: (context, state) {
-            if (state is StudentPageInitial) {
-              return const Text('Initial');
-            } else if (state is StudentPageLoading) {
-              return const CircularProgressIndicator();
-            } else if (state is StudentPageLoaded) {
-              return GridView.builder(
+              body: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   crossAxisSpacing: 3,
@@ -78,69 +99,95 @@ class SubjectDisplay extends StatelessWidget {
                     ),
                   );
                 },
-              );
-            } else if (state is StudentPageSubjectSelected) {
-              return Scaffold(
-                body: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 3,
-                    mainAxisSpacing: 3,
-                  ),
-                  itemCount: state.assignments.length,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => AssignmentDisplay(
-                              assignment: state.assignments[index],
-                              student: student,
-                              subject: state.subject,
-                            ),
-                          ),
-                        );
-                      },
-                      child: Card(
-                        elevation: 12,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              "${state.assignments[index].assignmentNumber}. ${state.assignments[index].title}",
-                              style: const TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 12),
-                              child: Text(
-                                state.assignments[index].description.toString(),
-                                style: const TextStyle(
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                maxLines: 5,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
+              ),
+            );
+          } else if (state is StudentPageSubjectSelected) {
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  student.name,
+                  style: const TextStyle(color: Colors.white),
+                ),
+                leading: IconButton(
+                  icon: const Icon(Icons.arrow_back, color: Colors.white),
+                  onPressed: () {
+                    BlocProvider.of<StudentPageBloc>(context).add(StudentPageBackEvent());
                   },
                 ),
-              );
-            } else if (state is StudentPageError) {
-              return Text(state.message);
-            } else {
-              return const Text('Error');
-            }
-          },
-        ),
+                backgroundColor: ColorConstants.kPrimaryColor,
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      child: Text(
+                        student.name[0].toUpperCase(),
+                        style: const TextStyle(color: ColorConstants.kPrimaryColor, fontSize: 24),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              body: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 3,
+                  mainAxisSpacing: 3,
+                ),
+                itemCount: state.assignments.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AssignmentDisplay(
+                            assignment: state.assignments[index],
+                            student: student,
+                            subject: state.subject,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Card(
+                      elevation: 12,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "${state.assignments[index].assignmentNumber}. ${state.assignments[index].title}",
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            child: Text(
+                              state.assignments[index].description.toString(),
+                              style: const TextStyle(
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              maxLines: 5,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            );
+          } else if (state is StudentPageError) {
+            return Text(state.message);
+          } else {
+            return const Text('Error');
+          }
+        },
       ),
     );
+    // );
   }
 }
