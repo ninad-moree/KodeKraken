@@ -1,7 +1,12 @@
+import 'package:code_text_field/code_text_field.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kode_kraken/constants/color_constants.dart';
+// import 'package:highlight/languages/python.dart';
+// import 'package:highlight/languages/java.dart';
+import 'package:highlight/languages/cpp.dart';
+import 'package:flutter_highlight/themes/monokai-sublime.dart';
 
 import '../../../../models/assignment.dart';
 import '../../../../models/student.dart';
@@ -27,6 +32,7 @@ class AssignmentDataDisplayPage extends StatefulWidget {
 class _AssignmentDataDisplayPageState extends State<AssignmentDataDisplayPage> {
   final TextEditingController codeController = TextEditingController();
   late ConfettiController confettiController;
+  late CodeController _codeController;
 
   void playConfetti() async {
     if (widget.studentAssignment!.status == "accepted") {
@@ -39,11 +45,19 @@ class _AssignmentDataDisplayPageState extends State<AssignmentDataDisplayPage> {
     confettiController = ConfettiController(duration: const Duration(seconds: 1));
     playConfetti();
     super.initState();
+
+    const source = "";
+    _codeController = CodeController(
+      text: source,
+      language: cpp,
+      theme: monokaiSublimeTheme,
+    );
   }
 
   @override
   void dispose() {
     confettiController.dispose();
+    _codeController.dispose();
     super.dispose();
   }
 
@@ -174,24 +188,40 @@ class _AssignmentDataDisplayPageState extends State<AssignmentDataDisplayPage> {
                         color: ColorConstants.grey,
                         borderRadius: BorderRadius.circular(15),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 12),
-                        child: TextField(
-                          cursorColor: ColorConstants.kPrimaryColor,
-                          decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'Enter your code here',
-                          ),
-                          style: const TextStyle(
-                            color: Colors.white,
-                          ),
+                      child: SingleChildScrollView(
+                        child: CodeField(
                           maxLines: null,
-                          keyboardType: TextInputType.multiline,
-                          controller: codeController,
+                          controller: _codeController,
+                          textStyle: const TextStyle(fontFamily: 'SourceCode'),
                         ),
                       ),
                     ),
                   ),
+                  // Expanded(
+                  //   child: Container(
+                  //     width: MediaQuery.of(context).size.width / 2,
+                  //     decoration: BoxDecoration(
+                  //       color: ColorConstants.grey,
+                  //       borderRadius: BorderRadius.circular(15),
+                  //     ),
+                  //     child: Padding(
+                  //       padding: const EdgeInsets.only(left: 12),
+                  //       child: TextField(
+                  //         cursorColor: ColorConstants.kPrimaryColor,
+                  //         decoration: const InputDecoration(
+                  //           border: InputBorder.none,
+                  //           hintText: 'Enter your code here',
+                  //         ),
+                  //         style: const TextStyle(
+                  //           color: Colors.white,
+                  //         ),
+                  //         maxLines: null,
+                  //         keyboardType: TextInputType.multiline,
+                  //         controller: codeController,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -199,12 +229,15 @@ class _AssignmentDataDisplayPageState extends State<AssignmentDataDisplayPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
-                          onPressed: () => BlocProvider.of<AssignmentDisplayBloc>(context).submitVersion(
-                            codeController.text,
-                            widget.student,
-                            widget.assignment,
-                            widget.studentAssignment!,
-                          ),
+                          onPressed: () {
+                            String code = _codeController.text.replaceAll('·', ' ');
+                            BlocProvider.of<AssignmentDisplayBloc>(context).submitVersion(
+                              code,
+                              widget.student,
+                              widget.assignment,
+                              widget.studentAssignment!,
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: ColorConstants.lightYellow,
                             shape: RoundedRectangleBorder(
@@ -222,12 +255,15 @@ class _AssignmentDataDisplayPageState extends State<AssignmentDataDisplayPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
-                          onPressed: () => BlocProvider.of<AssignmentDisplayBloc>(context).submitAssignment(
-                            codeController.text,
-                            widget.student,
-                            widget.assignment,
-                            widget.studentAssignment!,
-                          ),
+                          onPressed: () {
+                            String code = _codeController.text.replaceAll('·', ' ');
+                            BlocProvider.of<AssignmentDisplayBloc>(context).submitAssignment(
+                              code,
+                              widget.student,
+                              widget.assignment,
+                              widget.studentAssignment!,
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: ColorConstants.kPrimaryColor,
                             shape: RoundedRectangleBorder(
