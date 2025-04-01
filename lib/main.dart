@@ -2,6 +2,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kode_kraken/constants/color_constants.dart';
 import 'package:kode_kraken/features/login/ui/welcome.dart';
 import 'features/login/bloc/login_bloc.dart';
 import 'firebase_options.dart';
@@ -24,7 +25,9 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'KodeKraken',
-          theme: ThemeData(primarySwatch: Colors.blue),
+          theme: ThemeData(
+            scaffoldBackgroundColor: ColorConstants.kBackgroundColor,
+          ),
           routes: {
             '/': (ctx) => const WelcomePage(),
           },
