@@ -1,5 +1,8 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../constants/color_constants.dart';
 import '../../../models/student.dart';
@@ -22,19 +25,38 @@ class SubjectDisplay extends StatelessWidget {
           } else if (state is StudentPageLoaded) {
             return Scaffold(
               appBar: AppBar(
-                title: Text(
-                  student.name,
-                  style: const TextStyle(color: Colors.white),
+                title: Row(
+                  children: [
+                    SvgPicture.asset(
+                      color: ColorConstants.kPrimaryColor,
+                      'assets/images/logo.svg',
+                      width: 30,
+                      height: 30,
+                      fit: BoxFit.contain,
+                    ),
+                    const Text(
+                      'KodeKraken',
+                      style: TextStyle(
+                        color: ColorConstants.kPrimaryColor,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
-                backgroundColor: ColorConstants.kPrimaryColor,
+                backgroundColor: ColorConstants.kBackgroundColor,
                 actions: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: CircleAvatar(
-                      backgroundColor: Colors.white,
+                      backgroundColor: ColorConstants.kPrimaryColor,
                       child: Text(
                         student.name[0].toUpperCase(),
-                        style: const TextStyle(color: ColorConstants.kPrimaryColor, fontSize: 24),
+                        style: const TextStyle(
+                          color: ColorConstants.kBackgroundColor,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
@@ -115,25 +137,44 @@ class SubjectDisplay extends StatelessWidget {
             int numOfAssgn = state.assignments.length;
             return Scaffold(
               appBar: AppBar(
-                title: Text(
-                  student.name,
-                  style: const TextStyle(color: Colors.white),
+                title: Row(
+                  children: [
+                    SvgPicture.asset(
+                      color: ColorConstants.kPrimaryColor,
+                      'assets/images/logo.svg',
+                      width: 30,
+                      height: 30,
+                      fit: BoxFit.contain,
+                    ),
+                    const Text(
+                      'KodeKraken',
+                      style: TextStyle(
+                        color: ColorConstants.kPrimaryColor,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
                 leading: IconButton(
-                  icon: const Icon(Icons.arrow_back, color: Colors.white),
+                  icon: const Icon(Icons.arrow_back, color: ColorConstants.kPrimaryColor),
                   onPressed: () {
                     BlocProvider.of<StudentPageBloc>(context).add(StudentPageBackEvent());
                   },
                 ),
-                backgroundColor: ColorConstants.kPrimaryColor,
+                backgroundColor: ColorConstants.kBackgroundColor,
                 actions: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: CircleAvatar(
-                      backgroundColor: Colors.white,
+                      backgroundColor: ColorConstants.kPrimaryColor,
                       child: Text(
                         student.name[0].toUpperCase(),
-                        style: const TextStyle(color: ColorConstants.kPrimaryColor, fontSize: 24),
+                        style: const TextStyle(
+                          color: ColorConstants.kBackgroundColor,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
