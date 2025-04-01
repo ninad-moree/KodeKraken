@@ -1,7 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kode_kraken/features/teacher_view/ui/teacher_code_check.dart';
 import 'package:kode_kraken/services/database.dart';
+import '../../../constants/color_constants.dart';
 import '../../../models/assignment.dart';
 import '../../../models/student_assignment.dart';
 
@@ -15,13 +17,63 @@ class AssignmentStatus extends StatelessWidget {
 
   final String rollNumber;
   final String subject;
-  final List? assignments;
-              
+  final List<StudentAssignment>? assignments;
+
   @override
   Widget build(BuildContext context) {
+    if (assignments != null) {
+      assignments!.sort((a, b) {
+        return a.number.compareTo(b.number);
+      });
+    }
     return Scaffold(
       appBar: AppBar(
-        title: Text('$rollNumber-$subject'),
+        title: Row(
+          children: [
+            SvgPicture.asset(
+              color: ColorConstants.kPrimaryColor,
+              'assets/images/logo.svg',
+              width: 30,
+              height: 30,
+              fit: BoxFit.contain,
+            ),
+            const Text(
+              'KodeKraken',
+              style: TextStyle(
+                color: ColorConstants.kPrimaryColor,
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Expanded(
+              child: Center(
+                child: Text(
+                  '$rollNumber-$subject',
+                  style: const TextStyle(
+                    color: ColorConstants.kPrimaryColor,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            SvgPicture.asset(
+              color: ColorConstants.kBackgroundColor,
+              'assets/images/logo.svg',
+              width: 30,
+              height: 30,
+              fit: BoxFit.contain,
+            ),
+            const Text(
+              'KodeKraken',
+              style: TextStyle(
+                color: ColorConstants.kBackgroundColor,
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
       ),
       body: assignments == null || assignments!.isEmpty
           ? const Center(
@@ -56,7 +108,10 @@ class AssignmentStatus extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text('Assignment ${studentAssignment.number.toString()}'),
+                      Text(
+                        'Assignment ${studentAssignment.number.toString()}',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       Container(
                         decoration: BoxDecoration(
                           color: studentAssignment.status == "accepted"

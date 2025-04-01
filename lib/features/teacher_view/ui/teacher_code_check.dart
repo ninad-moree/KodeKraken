@@ -1,9 +1,15 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:code_text_field/code_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_highlight/themes/monokai-sublime.dart';
+import 'package:highlight/languages/cpp.dart';
+import 'package:highlight/languages/java.dart';
+import 'package:highlight/languages/python.dart';
 import 'package:kode_kraken/models/student_assignment.dart';
 
+import '../../../constants/color_constants.dart';
 import '../../../models/assignment.dart';
 import '../../assignment_display/ui/widgets/version_display.dart';
 import 'package:http/http.dart' as http;
@@ -25,40 +31,64 @@ class CodeDisplayPage extends StatefulWidget {
 }
 
 class _CodeDisplayPageState extends State<CodeDisplayPage> {
-  final TextEditingController codeController = TextEditingController();
   String output = 'Waiting for output';
+  late CodeController _codeController;
+
+  String _selectedLanguage = 'cpp';
+
+  final Map<String, dynamic> languageOptions = {
+    'cpp': cpp,
+    'python': python,
+    'java': java,
+  };
+
+  final Map<String, dynamic> languageId = {
+    'cpp': 7,
+    'python': 5,
+    'java': 4,
+  };
 
   @override
   void initState() {
     runCode(widget.studentAssignment.versions.last['code']);
-    codeController.text = widget.studentAssignment.versions.last['code'];
+    _codeController = CodeController(
+      text: widget.studentAssignment.versions.last['code'],
+      // language: cpp,
+      language: languageOptions[_selectedLanguage],
+      theme: monokaiSublimeTheme,
+    );
     super.initState();
   }
 
   Future runCode(String code) async {
     var response = await http.post(
-      Uri.parse("https://online-code-compiler.p.rapidapi.com/v1/"),
+      Uri.parse("https://code-compiler.p.rapidapi.com/v2"),
       headers: {
-        'content-type': 'application/json',
-        'X-RapidAPI-Key': '8c8aadd9b2msh97b85b5bf821197p1ea1a1jsn28f28c753386',
-        'X-RapidAPI-Host': 'online-code-compiler.p.rapidapi.com'
+        'Content-Type': 'application/json',
+        'X-RapidAPI-Key': 'e045d02908msh954c7b914f6d179p1f3208jsndfe0a23306bc',
+        'x-rapidapi-host': 'code-compiler.p.rapidapi.com'
       },
       body: jsonEncode({
-        'language': widget.assignment!.language,
-        'version': 'latest',
-        'code': code,
-        'input': widget.assignment!.testCases,
+        'LanguageChoice': languageId[_selectedLanguage],
+        'Program': code,
+        // 'input': assignment.testCases,
+        // 'language': assignment.language,
+        // 'version': 'latest',
+        // 'code': code,
+        // 'input': assignment.testCases,
       }),
     );
-    log(response.body.toString());
+
+    log(response.body);
+
     if (response.statusCode == 200) {
-      String codeOutput = jsonDecode(response.body)['output'];
+      String codeOutput = jsonDecode(response.body)['Result'];
       codeOutput = codeOutput.trim().replaceAll("\n", '');
       log("Output: $codeOutput");
       log("Expected Output: ${widget.assignment!.expectedOutput}");
       setState(() {
         output = codeOutput;
-        codeController.text = code;
+        _codeController.text = code;
       });
     } else {
       setState(() {
@@ -72,11 +102,57 @@ class _CodeDisplayPageState extends State<CodeDisplayPage> {
     log(widget.assignment!.testCases);
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.rollNumber),
+        iconTheme: const IconThemeData(color: ColorConstants.kPrimaryColor),
+        backgroundColor: ColorConstants.kBackgroundColor,
+        title: Text(
+          "${widget.assignment!.assignmentNumber}. ${widget.assignment!.title}",
+          style: const TextStyle(
+            color: ColorConstants.kPrimaryColor,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: widget.studentAssignment.status == "accepted"
+                    ? Colors.green
+                    : widget.studentAssignment.status == "rejected"
+                        ? Colors.red
+                        : Colors.blue,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                children: [
+                  widget.studentAssignment.status == "accepted"
+                      ? const Icon(
+                          Icons.check,
+                          color: Colors.white,
+                        )
+                      : widget.studentAssignment.status == "rejected"
+                          ? const Icon(
+                              Icons.close,
+                              color: Colors.white,
+                            )
+                          : Container(),
+                  Text(
+                    widget.studentAssignment.status.toUpperCase(),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
       body: widget.assignment == null
           ? const Center(
-              child: Text('There was an isssue loading the assignment.'),
+              child: Text('There was an issue loading the assignment.'),
             )
           : Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -89,24 +165,11 @@ class _CodeDisplayPageState extends State<CodeDisplayPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                widget.assignment!.title,
-                                style: const TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 20),
                           Text(
                             widget.assignment!.description,
                             style: const TextStyle(
                               fontSize: 17,
+                              color: Colors.white,
                             ),
                           ),
                           widget.studentAssignment.versions.isEmpty
@@ -135,17 +198,16 @@ class _CodeDisplayPageState extends State<CodeDisplayPage> {
                     Expanded(
                       child: Container(
                         width: MediaQuery.of(context).size.width / 2,
-                        color: Colors.grey[300],
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 12),
-                          child: TextField(
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Enter your code here',
-                            ),
+                        decoration: BoxDecoration(
+                          color: ColorConstants.grey,
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: SingleChildScrollView(
+                          child: CodeField(
                             maxLines: null,
-                            keyboardType: TextInputType.multiline,
-                            controller: codeController,
+                            controller: _codeController,
+                            textStyle:
+                                const TextStyle(fontFamily: 'SourceCode'),
                           ),
                         ),
                       ),
@@ -155,6 +217,7 @@ class _CodeDisplayPageState extends State<CodeDisplayPage> {
                       maxLines: 1,
                       style: const TextStyle(
                         overflow: TextOverflow.ellipsis,
+                        color: Colors.white,
                       ),
                     ),
                     const SizedBox(
@@ -165,20 +228,44 @@ class _CodeDisplayPageState extends State<CodeDisplayPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                            'Expected Output: ${widget.assignment!.expectedOutput}'),
+                          'Expected Output: ${widget.assignment!.expectedOutput}',
+                          style: const TextStyle(
+                            overflow: TextOverflow.ellipsis,
+                            color: Colors.white,
+                          ),
+                        ),
                         const SizedBox(
                           width: 10,
                         ),
-                        Text('Actual Output: $output'),
+                        Text(
+                          'Actual Output: $output',
+                          style: const TextStyle(
+                            overflow: TextOverflow.ellipsis,
+                            color: Colors.white,
+                          ),
+                        ),
                       ],
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ElevatedButton(
                         onPressed: () {
-                          runCode(codeController.text);
+                          String code =
+                              _codeController.text.replaceAll('·', ' ');
+                          runCode(code);
                         },
-                        child: const Text('Submit Assignment'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: ColorConstants.kPrimaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                        child: const Text(
+                          'Submit Assignment',
+                          style: TextStyle(
+                            color: ColorConstants.kBackgroundColor,
+                          ),
+                        ),
                       ),
                     ),
                   ],

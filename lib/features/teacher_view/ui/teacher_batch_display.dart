@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kode_kraken/features/teacher_view/ui/roll_number_page.dart';
+
+import '../../../constants/color_constants.dart';
 
 class Batch {
   String name;
@@ -209,7 +212,54 @@ class TeacherBatchDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Batches')),
+      appBar: AppBar(
+        title: Row(
+          children: [
+            SvgPicture.asset(
+              color: ColorConstants.kPrimaryColor,
+              'assets/images/logo.svg',
+              width: 30,
+              height: 30,
+              fit: BoxFit.contain,
+            ),
+            const Text(
+              'KodeKraken',
+              style: TextStyle(
+                color: ColorConstants.kPrimaryColor,
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const Expanded(
+              child: Center(
+                child: Text(
+                  'Batches',
+                  style: TextStyle(
+                    color: ColorConstants.kPrimaryColor,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            SvgPicture.asset(
+              color: ColorConstants.kBackgroundColor,
+              'assets/images/logo.svg',
+              width: 30,
+              height: 30,
+              fit: BoxFit.contain,
+            ),
+            const Text(
+              'KodeKraken',
+              style: TextStyle(
+                color: ColorConstants.kBackgroundColor,
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
       body: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4,
@@ -228,12 +278,33 @@ class TeacherBatchDisplay extends StatelessWidget {
                 ),
               );
             },
-            child: Card(
-              child: Center(
-                child: Text(
-                  batch.name,
-                  style: const TextStyle(
-                    fontSize: 24,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                color: ColorConstants.grey,
+                shadowColor: ColorConstants.lightYellow,
+                elevation: 12,
+                child: Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(15)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        batch.name,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.2,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
                   ),
                 ),
               ),
