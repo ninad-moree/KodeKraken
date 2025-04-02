@@ -71,13 +71,28 @@ class _CodeDisplayPageState extends State<CodeDisplayPage> {
 
   @override
   void initState() {
-    runCode(widget.studentAssignment.versions.last['code']);
-    _codeController = CodeController(
-      text: widget.studentAssignment.versions.last['code'],
-      // language: cpp,
-      language: languageOptions[_selectedLanguage],
-      theme: monokaiSublimeTheme,
-    );
+    // runCode(widget.studentAssignment.versions.last['code']);
+    // _codeController = CodeController(
+    //   text: widget.studentAssignment.versions.last['code'],
+    //   // language: cpp,
+    //   language: languageOptions[_selectedLanguage],
+    //   theme: monokaiSublimeTheme,
+    // );
+    if (widget.studentAssignment.versions.isNotEmpty) {
+      runCode(widget.studentAssignment.versions.last['code']);
+      _codeController = CodeController(
+        text: widget.studentAssignment.versions.last['code'],
+        language: languageOptions[_selectedLanguage],
+        theme: monokaiSublimeTheme,
+      );
+    } else {
+      log("No versions found for this assignment!");
+      _codeController = CodeController(
+        text: "",
+        language: languageOptions[_selectedLanguage],
+        theme: monokaiSublimeTheme,
+      );
+    }
     super.initState();
     fetchUpdatedAssignment();
     log(widget.studentAssignment.plagiarismScore.toStringAsFixed(5).toString());
@@ -159,7 +174,10 @@ class _CodeDisplayPageState extends State<CodeDisplayPage> {
                               Icons.close,
                               color: Colors.white,
                             )
-                          : Container(),
+                          : const Icon(
+                              Icons.block,
+                              color: Colors.white,
+                            ),
                   Text(
                     widget.studentAssignment.status.toUpperCase(),
                     style: const TextStyle(

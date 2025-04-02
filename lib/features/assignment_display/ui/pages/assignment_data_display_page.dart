@@ -146,7 +146,10 @@ class _AssignmentDataDisplayPageState extends State<AssignmentDataDisplayPage> {
                                   Icons.close,
                                   color: Colors.white,
                                 )
-                              : Container(),
+                              : const Icon(
+                                  Icons.block,
+                                  color: Colors.white,
+                                ),
                       Text(
                         widget.studentAssignment!.status.toUpperCase(),
                         style: const TextStyle(
