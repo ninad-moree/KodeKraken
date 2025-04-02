@@ -57,10 +57,12 @@ class _CodeDisplayPageState extends State<CodeDisplayPage> {
       log("FETCHED FROM FIREBASE:");
       log("isPlagiarized: ${data['isPlagiarized']}");
       log("plagiarismScore: ${data['plagiarismScore']}");
+      log("learner type: ${data['learnerType']}");
 
       setState(() {
         widget.studentAssignment.isPlagiarized = data['isPlagiarized'];
         widget.studentAssignment.plagiarismScore = (data['plagiarismScore'] as num?)?.toDouble() ?? 0.0;
+        // widget.studentAssignment.learnerType = (data['learnerType']);
       });
     } else {
       log("No Data available");
@@ -203,6 +205,13 @@ class _CodeDisplayPageState extends State<CodeDisplayPage> {
                           ),
                           Text(
                             "Plagiarism Score: ${widget.studentAssignment.plagiarismScore.toStringAsFixed(5)}",
+                            style: const TextStyle(
+                              fontSize: 17,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Text(
+                            "Learner Type: ${widget.studentAssignment.learnerType.toUpperCase()}",
                             style: const TextStyle(
                               fontSize: 17,
                               color: Colors.white,

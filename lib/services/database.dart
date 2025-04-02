@@ -125,6 +125,7 @@ class Database {
       data['status'] = "accepted";
       data['isPlagiarized'] = isPlagiarized;
       data['plagiarismScore'] = plagiarismScore.toDouble();
+      data['learnerType'] = learnerType;
       await _firestore.collection('assignment').doc(studentAssignment.id).update(data);
 
       log("AFTER FIREBASE UPDATE:");
