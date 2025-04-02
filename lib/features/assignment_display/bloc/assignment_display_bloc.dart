@@ -77,9 +77,11 @@ class AssignmentDisplayBloc extends Bloc<AssignmentDisplayEvent, AssignmentDispl
 
         Map<String, dynamic> learnerResponse = await ClassifyLearner().classifyLearner(
           studentAssignment.versions.length + 1,
-          ClassifyLearner()
-              .getTimeDifferenceInMinutes((studentAssignment.versions[studentAssignment.versions.length - 1]['date'] as Timestamp).toDate())
-              .toDouble(),
+          studentAssignment.versions.isEmpty
+              ? 0
+              : ClassifyLearner()
+                  .getTimeDifferenceInMinutes((studentAssignment.versions[studentAssignment.versions.length - 1]['date'] as Timestamp).toDate())
+                  .toDouble(),
           plagiarismResponse['plagerism_score'],
         );
 
@@ -88,7 +90,12 @@ class AssignmentDisplayBloc extends Bloc<AssignmentDisplayEvent, AssignmentDispl
         log(("Learner: ${learnerResponse['learner_type']}"));
 
         await Database.codeExecutedCorrectly(
-            code, studentAssignment, plagiarismResponse['is_plagiarized'], plagiarismResponse['plagerism_score'], learnerResponse['learner_type']);
+          code,
+          studentAssignment,
+          plagiarismResponse['is_plagiarized'],
+          plagiarismResponse['plagerism_score'],
+          learnerResponse['learner_type'],
+        );
       } else {
         emit(AssignmentDisplayFailure(message: "Wrong Answer"));
         await Database.codeExecutedIncorrectly(code, studentAssignment);

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:code_text_field/code_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/themes/monokai-sublime.dart';
@@ -48,6 +49,24 @@ class _CodeDisplayPageState extends State<CodeDisplayPage> {
     'java': 4,
   };
 
+  Future<void> fetchUpdatedAssignment() async {
+    var result = await FirebaseFirestore.instance.collection('assignment').doc(widget.studentAssignment.id).get();
+
+    if (result.exists) {
+      var data = result.data()!;
+      log("FETCHED FROM FIREBASE:");
+      log("isPlagiarized: ${data['isPlagiarized']}");
+      log("plagiarismScore: ${data['plagiarismScore']}");
+
+      setState(() {
+        widget.studentAssignment.isPlagiarized = data['isPlagiarized'];
+        widget.studentAssignment.plagiarismScore = (data['plagiarismScore'] as num?)?.toDouble() ?? 0.0;
+      });
+    } else {
+      log("No Data available");
+    }
+  }
+
   @override
   void initState() {
     runCode(widget.studentAssignment.versions.last['code']);
@@ -58,6 +77,8 @@ class _CodeDisplayPageState extends State<CodeDisplayPage> {
       theme: monokaiSublimeTheme,
     );
     super.initState();
+    fetchUpdatedAssignment();
+    log(widget.studentAssignment.plagiarismScore.toStringAsFixed(5).toString());
   }
 
   Future runCode(String code) async {
@@ -172,11 +193,24 @@ class _CodeDisplayPageState extends State<CodeDisplayPage> {
                               color: Colors.white,
                             ),
                           ),
+                          const SizedBox(height: 20),
+                          Text(
+                            widget.studentAssignment.isPlagiarized ? "Plagiarism Detected" : "No Plagiarism",
+                            style: TextStyle(
+                              fontSize: 17,
+                              color: widget.studentAssignment.isPlagiarized ? Colors.red : Colors.green,
+                            ),
+                          ),
+                          Text(
+                            "Plagiarism Score: ${widget.studentAssignment.plagiarismScore.toStringAsFixed(5)}",
+                            style: const TextStyle(
+                              fontSize: 17,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
                           widget.studentAssignment.versions.isEmpty
-                              ? const Center(
-                                  child: Text(
-                                      'No submissions have been made yet.'),
-                                )
+                              ? const Center(child: Text('No submissions have been made yet.'))
                               : Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: List.generate(
@@ -206,8 +240,7 @@ class _CodeDisplayPageState extends State<CodeDisplayPage> {
                           child: CodeField(
                             maxLines: null,
                             controller: _codeController,
-                            textStyle:
-                                const TextStyle(fontFamily: 'SourceCode'),
+                            textStyle: const TextStyle(fontFamily: 'SourceCode'),
                           ),
                         ),
                       ),
@@ -250,8 +283,7 @@ class _CodeDisplayPageState extends State<CodeDisplayPage> {
                       padding: const EdgeInsets.all(8.0),
                       child: ElevatedButton(
                         onPressed: () {
-                          String code =
-                              _codeController.text.replaceAll('·', ' ');
+                          String code = _codeController.text.replaceAll('·', ' ');
                           runCode(code);
                         },
                         style: ElevatedButton.styleFrom(

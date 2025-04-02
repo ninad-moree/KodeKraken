@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kode_kraken/features/teacher_view/ui/teacher_code_check.dart';
@@ -82,13 +82,11 @@ class AssignmentStatus extends StatelessWidget {
           : ListView.builder(
               itemCount: assignments!.length,
               itemBuilder: (context, index) {
-                var studentAssignment =
-                    assignments![index] as StudentAssignment;
+                var studentAssignment = assignments![index] as StudentAssignment;
 
                 return ListTile(
                   onTap: () async {
-                    Assignment? assignment = await Database
-                        .getAssignmentDetailsFromStudentAssignments(
+                    Assignment? assignment = await Database.getAssignmentDetailsFromStudentAssignments(
                       studentAssignment.subject,
                       studentAssignment.number,
                       int.parse(rollNumber),
@@ -110,7 +108,7 @@ class AssignmentStatus extends StatelessWidget {
                     children: [
                       Text(
                         'Assignment ${studentAssignment.number.toString()}',
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                       Container(
                         decoration: BoxDecoration(
