@@ -77,11 +77,15 @@ class AssignmentStatus extends StatelessWidget {
       ),
       body: assignments == null || assignments!.isEmpty
           ? const Center(
-              child: Text('No assignments assigned'),
+              child: Text(
+                'No assignments assigned',
+                style: TextStyle(color: Colors.white, fontSize: 32),
+              ),
             )
           : ListView.builder(
               itemCount: assignments!.length,
               itemBuilder: (context, index) {
+                // ignore: unnecessary_cast
                 var studentAssignment = assignments![index] as StudentAssignment;
 
                 return ListTile(

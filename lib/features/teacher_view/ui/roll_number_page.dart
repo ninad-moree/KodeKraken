@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kode_kraken/features/teacher_view/ui/submitted_assig.dart';
@@ -72,9 +74,7 @@ class RollNumberPage extends StatelessWidget {
             ),
             onTap: () {
               Navigator.of(context).push(
-                MaterialPageRoute(
-                    builder: (BuildContext context) =>
-                        SubmittedAssignments(rollNumber: rollNumbers[index])),
+                MaterialPageRoute(builder: (BuildContext context) => SubmittedAssignments(rollNumber: rollNumbers[index])),
               );
             },
           );

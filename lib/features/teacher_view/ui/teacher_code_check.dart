@@ -35,7 +35,7 @@ class _CodeDisplayPageState extends State<CodeDisplayPage> {
   String output = 'Waiting for output';
   late CodeController _codeController;
 
-  String _selectedLanguage = 'cpp';
+  final String _selectedLanguage = 'cpp';
 
   final Map<String, dynamic> languageOptions = {
     'cpp': cpp,

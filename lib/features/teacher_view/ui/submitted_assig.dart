@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kode_kraken/features/teacher_view/ui/assignment_status.dart';
@@ -84,29 +84,22 @@ class SubmittedAssignments extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (BuildContext context) => AssignmentStatus(
                             rollNumber: rollNumber.toString(),
-                            subject: (data.values.toList()[index][0]
-                                    as StudentAssignment)
-                                .subject,
-                            assignments: (data[(data.values.toList()[index][0]
-                                    as StudentAssignment)
-                                .subject]),
+                            subject: (data.values.toList()[index][0] as StudentAssignment).subject,
+                            assignments: (data[(data.values.toList()[index][0] as StudentAssignment).subject]),
                           ),
                         ),
                       );
                     },
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                       child: Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                         color: ColorConstants.grey,
                         shadowColor: ColorConstants.lightYellow,
                         elevation: 12,
                         child: Container(
                           padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15)),
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -123,8 +116,7 @@ class SubmittedAssignments extends StatelessWidget {
                               ),
                               const SizedBox(height: 5),
                               Container(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 5, horizontal: 12),
+                                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
                                 decoration: BoxDecoration(
                                   color: ColorConstants.kPrimaryColor,
                                   borderRadius: BorderRadius.circular(10),
@@ -149,7 +141,10 @@ class SubmittedAssignments extends StatelessWidget {
               );
             } else {
               return const Center(
-                child: Text("No Assignments"),
+                child: Text(
+                  "No Assignments",
+                  style: TextStyle(color: Colors.white, fontSize: 32),
+                ),
               );
             }
           } else if (snapshot.connectionState == ConnectionState.waiting) {
@@ -157,8 +152,7 @@ class SubmittedAssignments extends StatelessWidget {
               child: SizedBox(
                 height: 100,
                 width: 100,
-                child: CircularProgressIndicator(
-                    color: ColorConstants.kPrimaryColor),
+                child: CircularProgressIndicator(color: ColorConstants.kPrimaryColor),
               ),
             );
           }
@@ -166,8 +160,7 @@ class SubmittedAssignments extends StatelessWidget {
             child: SizedBox(
               height: 100,
               width: 100,
-              child: CircularProgressIndicator(
-                  color: ColorConstants.kPrimaryColor),
+              child: CircularProgressIndicator(color: ColorConstants.kPrimaryColor),
             ),
           );
         },
