@@ -214,30 +214,43 @@ class _CodeDisplayPageState extends State<CodeDisplayPage> {
                             ),
                           ),
                           const SizedBox(height: 20),
-                          Text(
-                            widget.studentAssignment.isPlagiarized ? "Plagiarism Detected" : "No Plagiarism",
-                            style: TextStyle(
-                              fontSize: 17,
-                              color: widget.studentAssignment.isPlagiarized ? Colors.red : Colors.green,
-                            ),
-                          ),
-                          Text(
-                            "Plagiarism Score: ${widget.studentAssignment.plagiarismScore.toStringAsFixed(5)}",
-                            style: const TextStyle(
-                              fontSize: 17,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Text(
-                            "Learner Type: ${widget.studentAssignment.learnerType.toUpperCase()}",
-                            style: const TextStyle(
-                              fontSize: 17,
-                              color: Colors.white,
-                            ),
-                          ),
-                          const SizedBox(height: 20),
+                          widget.studentAssignment.learnerType.isEmpty
+                              ? Container()
+                              : Text(
+                                  widget.studentAssignment.isPlagiarized ? "Plagiarism Detected" : "No Plagiarism",
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    color: widget.studentAssignment.isPlagiarized ? Colors.red : Colors.green,
+                                  ),
+                                ),
+                          widget.studentAssignment.learnerType.isEmpty
+                              ? Container()
+                              : Text(
+                                  "Plagiarism Score: ${widget.studentAssignment.plagiarismScore.toStringAsFixed(5)}",
+                                  style: const TextStyle(
+                                    fontSize: 17,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                          widget.studentAssignment.learnerType.isEmpty
+                              ? Container()
+                              : Text(
+                                  "Learner Type: ${widget.studentAssignment.learnerType.toUpperCase()}",
+                                  style: const TextStyle(
+                                    fontSize: 17,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                          widget.studentAssignment.learnerType.isEmpty ? Container() : const SizedBox(height: 20),
                           widget.studentAssignment.versions.isEmpty
-                              ? const Center(child: Text('No submissions have been made yet.'))
+                              ? const Center(
+                                  child: Text(
+                                  'No submissions have been made yet.',
+                                  style: TextStyle(
+                                    color: ColorConstants.kPrimaryColor,
+                                    fontSize: 24,
+                                  ),
+                                ))
                               : Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: List.generate(
