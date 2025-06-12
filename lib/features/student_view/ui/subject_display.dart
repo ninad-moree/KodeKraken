@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:kode_kraken/services/database.dart';
 
 import '../../../constants/color_constants.dart';
 import '../../../models/student.dart';
@@ -15,6 +16,8 @@ class SubjectDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
     return Center(
       child: BlocBuilder<StudentPageBloc, StudentPageState>(
         builder: (context, state) {
@@ -46,21 +49,163 @@ class SubjectDisplay extends StatelessWidget {
                 ),
                 backgroundColor: ColorConstants.kBackgroundColor,
                 actions: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CircleAvatar(
-                      backgroundColor: ColorConstants.kPrimaryColor,
-                      child: Text(
-                        student.name[0].toUpperCase(),
-                        style: const TextStyle(
-                          color: ColorConstants.kBackgroundColor,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+                  GestureDetector(
+                    onTap: () {
+                      scaffoldKey.currentState?.openDrawer();
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CircleAvatar(
+                        backgroundColor: ColorConstants.kPrimaryColor,
+                        child: Text(
+                          student.name[0].toUpperCase(),
+                          style: const TextStyle(
+                            color: ColorConstants.kBackgroundColor,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ],
+              ),
+              drawer: Drawer(
+                backgroundColor: ColorConstants.kBackgroundColor,
+                child: Column(
+                  children: [
+                    Container(
+                      height: 100,
+                      decoration: const BoxDecoration(color: ColorConstants.kPrimaryColor),
+                      child: const Center(
+                        child: Text(
+                          "Personal Details",
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: ListView(
+                        padding: EdgeInsets.zero,
+                        children: [
+                          ListTile(
+                            title: Text(
+                              "Name: ${student.name}",
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                            onTap: () {},
+                          ),
+                          ListTile(
+                            title: Text(
+                              "Email: ${student.email}",
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                            onTap: () {},
+                          ),
+                          ListTile(
+                            title: Text(
+                              "Roll No: ${student.rollno}",
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                            onTap: () {},
+                          ),
+                          ListTile(
+                            title: Text(
+                              "Batch: ${student.batch}",
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                            onTap: () {},
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Divider(color: ColorConstants.kPrimaryColor, height: 5),
+                    SizedBox(
+                      height: 75,
+                      child: ListTile(
+                        leading: const Icon(Icons.logout, color: Colors.red),
+                        title: const Text(
+                          "Logout",
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 20,
+                          ),
+                        ),
+                        onTap: () {
+                          Database.logout(context);
+                        },
+                      ),
+                    ),
+                    // ListTile(
+                    //   title: Text(
+                    //     "Name: ${student.name}",
+                    //     style: const TextStyle(
+                    //       color: Colors.white,
+                    //       fontSize: 18,
+                    //     ),
+                    //   ),
+                    //   onTap: () {},
+                    // ),
+                    // ListTile(
+                    //   title: Text(
+                    //     "Email: ${student.email}",
+                    //     style: const TextStyle(
+                    //       color: Colors.white,
+                    //       fontSize: 18,
+                    //     ),
+                    //   ),
+                    //   onTap: () {},
+                    // ),
+                    // ListTile(
+                    //   title: Text(
+                    //     "Roll No: ${student.rollno}",
+                    //     style: const TextStyle(
+                    //       color: Colors.white,
+                    //       fontSize: 18,
+                    //     ),
+                    //   ),
+                    //   onTap: () {},
+                    // ),
+                    // ListTile(
+                    //   title: Text(
+                    //     "Batch: ${student.batch}",
+                    //     style: const TextStyle(
+                    //       color: Colors.white,
+                    //       fontSize: 18,
+                    //     ),
+                    //   ),
+                    //   onTap: () {},
+                    // ),
+                    // ListTile(
+                    //   leading: const Icon(Icons.logout, color: Colors.red),
+                    //   title: const Text(
+                    //     "Logout",
+                    //     style: TextStyle(
+                    //       color: Colors.red,
+                    //       fontSize: 20,
+                    //     ),
+                    //   ),
+                    //   onTap: () {
+                    //     Database.logout(context);
+                    //   },
+                    // ),
+                  ],
+                ),
               ),
               body: Padding(
                 padding: const EdgeInsets.only(top: 20, bottom: 15),

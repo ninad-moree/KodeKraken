@@ -1,5 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:kode_kraken/features/login/ui/welcome.dart';
 import 'package:kode_kraken/models/assignment.dart';
 import 'package:kode_kraken/models/student_assignment.dart';
 
@@ -198,5 +201,14 @@ class Database {
         return studentAssignments;
       }
     }
+  }
+
+  static Future<void> logout(BuildContext context) async {
+    // await FirebaseAuth.instance.signOut();
+
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => const WelcomePage()),
+      (route) => false,
+    );
   }
 }
