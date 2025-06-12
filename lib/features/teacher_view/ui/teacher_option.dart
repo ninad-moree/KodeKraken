@@ -143,6 +143,36 @@ class TeacherOption extends StatelessWidget {
                           ),
                         ),
                       ),
+                      // const SizedBox(height: 60),
+                      // SizedBox(
+                      //   width: double.infinity,
+                      //   height: 55,
+                      //   child: OutlinedButton(
+                      //     onPressed: () async {
+                      //       Navigator.of(context).push(
+                      //         MaterialPageRoute(
+                      //           builder: (context) => const Statistics(),
+                      //         ),
+                      //       );
+                      //     },
+                      //     style: ElevatedButton.styleFrom(
+                      //       backgroundColor: ColorConstants.kPrimaryColor,
+                      //       shape: RoundedRectangleBorder(
+                      //         borderRadius: BorderRadius.circular(10.0),
+                      //       ),
+                      //     ),
+                      //     child: const Padding(
+                      //       padding: EdgeInsets.all(8.0),
+                      //       child: Text(
+                      //         'View Student Data',
+                      //         style: TextStyle(
+                      //           color: ColorConstants.kBackgroundColor,
+                      //           fontSize: 20,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -151,73 +181,6 @@ class TeacherOption extends StatelessWidget {
           ),
         ),
       ),
-      // body: Center(
-      //   child: Column(
-      //     mainAxisAlignment: MainAxisAlignment.center,
-      //     children: [
-      //       Padding(
-      //         padding: const EdgeInsets.all(10),
-      //         child: ElevatedButton(
-      //           style: const ButtonStyle(
-      //             backgroundColor: MaterialStatePropertyAll(ColorConstants.kPrimaryColor),
-      //           ),
-      //           onPressed: () {
-      //             Navigator.of(context).push(
-      //               MaterialPageRoute(
-      //                 builder: (context) => const BatchDisplay(),
-      //               ),
-      //             );
-      //           },
-      //           child: const Padding(
-      //             padding: EdgeInsets.all(8.0),
-      //             child: Text(
-      //               'View or Edit Assignment',
-      //               style: TextStyle(
-      //                 color: ColorConstants.kBackgroundColor,
-      //                 fontSize: 25,
-      //               ),
-      //             ),
-      //           ),
-      //         ),
-      //       ),
-      //       const Padding(
-      //         padding: EdgeInsets.all(10),
-      //         child: Text(
-      //           'OR',
-      //           style: TextStyle(
-      //             color: Colors.white,
-      //             fontSize: 20,
-      //           ),
-      //         ),
-      //       ),
-      //       Padding(
-      //         padding: const EdgeInsets.all(10),
-      //         child: ElevatedButton(
-      //           style: const ButtonStyle(
-      //             backgroundColor: MaterialStatePropertyAll(ColorConstants.kPrimaryColor),
-      //           ),
-      //           onPressed: () async {
-      //             Navigator.of(context).push(
-      //               MaterialPageRoute(
-      //                 builder: (context) => TeacherBatchDisplay(),
-      //               ),
-      //             );
-      //           },
-      //           child: const Padding(
-      //             padding: EdgeInsets.all(8.0),
-      //             child: Text(
-      //               'Grade Student Assignment',
-      //               style: TextStyle(
-      //                 color: ColorConstants.kBackgroundColor,
-      //                 fontSize: 25,
-      //               ),
-      //             ),
-      //           ),
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
     );
   }
 }
