@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 
-class PlagiarismChecker {
-  final String apiUrl = "http://127.0.0.1:8000/check_plagiarism/";
+class CodeAiDetection {
+  final String apiUrl = "http://127.0.0.1:8000/detect";
 
-  Future<Map<String, dynamic>> checkPlagiarism(String referenceCode, String submittedCode) async {
+  Future<Map<String, dynamic>> codeDetection(String code) async {
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
@@ -13,16 +13,16 @@ class PlagiarismChecker {
           "Content-Type": "application/json",
         },
         body: jsonEncode({
-          "reference_code": referenceCode,
-          "submitted_code": submittedCode,
+          "text": code,
         }),
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final data = jsonDecode(response.body);
+        log("ISAI response" + data['verdict']);
         return data;
       } else {
-        log("Error (plag): ${response.statusCode} - ${response.body}");
+        log("Error (isAI): ${response.statusCode} - ${response.body}");
         return {"Error": response.statusCode};
       }
     } catch (e) {

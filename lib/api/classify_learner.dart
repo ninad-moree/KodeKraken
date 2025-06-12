@@ -23,7 +23,7 @@ class ClassifyLearner {
         final data = jsonDecode(response.body);
         return data;
       } else {
-        log("Error: ${response.statusCode} - ${response.body}");
+        log("Error (classify): ${response.statusCode} - ${response.body}");
         return {"Error": response.statusCode};
       }
     } catch (e) {

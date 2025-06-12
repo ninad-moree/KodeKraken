@@ -239,16 +239,24 @@ class _CodeDisplayPageState extends State<CodeDisplayPage> {
                                     color: Colors.white,
                                   ),
                                 ),
+                          Text(
+                            widget.studentAssignment.isAI,
+                            style: const TextStyle(
+                              fontSize: 17,
+                              color: Colors.white,
+                            ),
+                          ),
                           widget.studentAssignment.learnerType.isEmpty ? Container() : const SizedBox(height: 20),
                           widget.studentAssignment.versions.isEmpty
                               ? const Center(
                                   child: Text(
-                                  'No submissions have been made yet.',
-                                  style: TextStyle(
-                                    color: ColorConstants.kPrimaryColor,
-                                    fontSize: 24,
+                                    'No submissions have been made yet.',
+                                    style: TextStyle(
+                                      color: ColorConstants.kPrimaryColor,
+                                      fontSize: 24,
+                                    ),
                                   ),
-                                ))
+                                )
                               : Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: List.generate(

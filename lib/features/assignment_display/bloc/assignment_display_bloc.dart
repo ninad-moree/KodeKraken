@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:bloc/bloc.dart';
 import 'package:kode_kraken/api/classify_learner.dart';
+import 'package:kode_kraken/api/code_ai_detection.dart';
 
 import '../../../api/check_plagerism.dart';
 import '../../../models/assignment.dart';
@@ -59,7 +60,7 @@ class AssignmentDisplayBloc extends Bloc<AssignmentDisplayEvent, AssignmentDispl
       }),
     );
 
-    // log(response.body); --> {"Errors":null,"Result":"1","Stats":"No Status Available","Files":null}
+    log(response.body); // --> {"Errors":null,"Result":"1","Stats":"No Status Available","Files":null}
 
     if (response.statusCode == 200) {
       String output = jsonDecode(response.body)['Result'].toString();
@@ -85,6 +86,8 @@ class AssignmentDisplayBloc extends Bloc<AssignmentDisplayEvent, AssignmentDispl
           plagiarismResponse['plagerism_score'],
         );
 
+        Map<String, dynamic> codeDetection = await CodeAiDetection().codeDetection(code);
+
         log("Is Plagerised: ${plagiarismResponse['is_plagiarized']}");
         log("Score: ${plagiarismResponse['plagerism_score']}");
         log(("Learner: ${learnerResponse['learner_type']}"));
@@ -95,6 +98,7 @@ class AssignmentDisplayBloc extends Bloc<AssignmentDisplayEvent, AssignmentDispl
           plagiarismResponse['is_plagiarized'],
           plagiarismResponse['plagerism_score'],
           learnerResponse['learner_type'],
+          codeDetection['verdict'],
         );
       } else {
         emit(AssignmentDisplayFailure(message: "Wrong Answer"));

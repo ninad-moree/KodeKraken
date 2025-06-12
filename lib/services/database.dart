@@ -108,6 +108,7 @@ class Database {
       isPlagiarized: false,
       plagiarismScore: 0.0,
       learnerType: 'slow',
+      isAI: 'The text appears to be human-written.',
     );
     return _firestore.collection('assignment').add(StudentAssignment.toJson(studentAssignment)).then((value) {
       student.assignments.add(value.id);
@@ -119,7 +120,7 @@ class Database {
   }
 
   static Future codeExecutedCorrectly(
-      String code, StudentAssignment studentAssignment, bool isPlagiarized, double plagiarismScore, String learnerType) async {
+      String code, StudentAssignment studentAssignment, bool isPlagiarized, double plagiarismScore, String learnerType, String isAI) async {
     var result = await _firestore.collection('assignment').doc(studentAssignment.id).get();
     if (result.exists) {
       var data = result.data()!;
@@ -128,11 +129,8 @@ class Database {
       data['isPlagiarized'] = isPlagiarized;
       data['plagiarismScore'] = plagiarismScore.toDouble();
       data['learnerType'] = learnerType;
+      data['isAI'] = isAI;
       await _firestore.collection('assignment').doc(studentAssignment.id).update(data);
-
-      log("AFTER FIREBASE UPDATE:");
-      log("Updated isPlagiarized: ${data['isPlagiarized']}");
-      log("Updated plagiarismScore: ${data['plagiarismScore']}");
     }
   }
 

@@ -7,6 +7,7 @@ class StudentAssignment {
   bool isPlagiarized;
   double plagiarismScore;
   String learnerType;
+  String isAI;
   //String assignemntID; //
 
   StudentAssignment({
@@ -18,6 +19,7 @@ class StudentAssignment {
     required this.isPlagiarized,
     required this.plagiarismScore,
     required this.learnerType,
+    required this.isAI,
     //required this.assignemntID
   });
 
@@ -31,6 +33,7 @@ class StudentAssignment {
       isPlagiarized: json['isPlagerised'] ?? false,
       plagiarismScore: json['plagerismScore'] ?? 0.0,
       learnerType: json['learnerType'] ?? '',
+      isAI: json['isAI'] ?? '',
       //assignemntID: json['assignmentID'] ?? '', //
     );
   }
@@ -45,6 +48,7 @@ class StudentAssignment {
       'isPlagerised': studentAssignment.isPlagiarized,
       'plagerismScore': studentAssignment.plagiarismScore,
       'learnerType': studentAssignment.learnerType,
+      'isAI': studentAssignment.isAI,
       //'assignmentID': studentAssignment.assignemntID,
     };
   }
