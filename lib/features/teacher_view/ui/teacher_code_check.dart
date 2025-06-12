@@ -192,9 +192,7 @@ class _CodeDisplayPageState extends State<CodeDisplayPage> {
         ],
       ),
       body: widget.assignment == null
-          ? const Center(
-              child: Text('There was an issue loading the assignment.'),
-            )
+          ? const Center(child: Text('There was an issue loading the assignment.'))
           : Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,

@@ -54,11 +54,33 @@ class _AssignmentDataDisplayPageState extends State<AssignmentDataDisplayPage> {
     }
   }
 
+  // Future<void> fetchUpdatedAssignment() async {
+  //   var result = await FirebaseFirestore.instance.collection('assignment').doc(widget.studentAssignment!.id).get();
+
+  //   if (result.exists) {
+  //     var data = result.data()!;
+  //     log("FETCHED FROM FIREBASE:");
+  //     log("isPlagiarized: ${data['isPlagiarized']}");
+  //     log("plagiarismScore: ${data['plagiarismScore']}");
+  //     log("learner type: ${data['learnerType']}");
+
+  //     setState(() {
+  //       widget.studentAssignment?.isPlagiarized = data['isPlagiarized'];
+  //       widget.studentAssignment?.plagiarismScore = (data['plagiarismScore'] as num?)?.toDouble() ?? 0.0;
+  //       // widget.studentAssignment.learnerType = (data['learnerType']);
+  //     });
+  //   } else {
+  //     log("No Data available");
+  //   }
+  // }
+
   @override
   void initState() {
     confettiController = ConfettiController(duration: const Duration(seconds: 1));
     playConfetti();
     super.initState();
+
+    // fetchUpdatedAssignment();
 
     const source = "";
     _codeController = CodeController(
